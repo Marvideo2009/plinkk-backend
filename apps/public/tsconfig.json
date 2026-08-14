@@ -1,15 +1,21 @@
 {
+    "extends": "./.svelte-kit/tsconfig.json",
     "compilerOptions": {
-        "moduleResolution": "node16",
+        "moduleResolution": "bundler",
         "types": ["node", "bun"],
         "lib": ["ES2021"],
-        "module": "node16",
         "target": "es2022",
         "outDir": "dist",
         "rootDir": "src",
         "esModuleInterop": true,
         "skipLibCheck": true,
-        "preserveSymlinks": true
+        "preserveSymlinks": true,
+        "allowJs": true,
+        "checkJs": true,
+        "forceConsistentCasingInFileNames": true,
+        "resolveJsonModule": true,
+        "sourceMap": true,
+        "strict": true
     },
     "include": ["src"],
     "exclude": ["dist", "src/public"]

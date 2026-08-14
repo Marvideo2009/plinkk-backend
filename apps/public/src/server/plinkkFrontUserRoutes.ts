@@ -510,7 +510,6 @@ export function plinkkFrontUserRoutes(fastify: FastifyInstance) {
       reply.header("Vary", "Referer");
 
       const resolved = await resolvePlinkkPage(
-        prisma,
         username,
         undefined,
         request,

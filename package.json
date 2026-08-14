@@ -25,10 +25,14 @@
   },
   "devDependencies": {
     "@prisma/adapter-pg": "^7.5.0",
+    "@tailwindcss/forms": "^0.5.11",
+    "@tailwindcss/typography": "^0.5.19",
+    "@tailwindcss/vite": "^4.3.3",
     "@types/pg": "8.18.0",
     "concurrently": "^9.2.1",
     "pg": "^8.20.0",
-    "prisma": "^7.5.0"
+    "prisma": "^7.5.0",
+    "tailwindcss": "^4.3.3"
   },
   "dependencies": {
     "@fastify/secure-session": "^8.3.0",
@@ -38,8 +42,8 @@
   "prisma": {
     "schema": "packages/prisma/prisma/schema.prisma"
   },
-  "private": true
-  ,"overrides": {
+  "private": true,
+  "overrides": {
     "@types/pg": "8.18.0"
   }
 }

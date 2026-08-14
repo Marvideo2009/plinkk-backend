@@ -10,3 +10,5 @@ dist
 /.github
 .env_utf8
 /~*
+.svelte-kit
+build/

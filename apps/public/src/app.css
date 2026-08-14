@@ -1,6 +1,6 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@plugin '@tailwindcss/forms';
+@plugin '@tailwindcss/typography';
 
 :root {
 	--ease-out-quad: cubic-bezier(.22, 1, .36, 1);
@@ -53,7 +53,7 @@ body {
 }
 
 .card-surface {
-	@apply rounded-xl border border-[rgba(139,92,246,0.2)] bg-gradient-to-br from-[rgba(11,19,36,0.95)] to-[rgba(15,23,42,0.9)] backdrop-blur-xl transition-all duration-300 ease-[var(--ease-out-quad)];
+	@apply rounded-xl border border-[rgba(139,92,246,0.2)] bg-linear-to-br from-[rgba(11,19,36,0.95)] to-[rgba(15,23,42,0.9)] backdrop-blur-xl transition-all duration-300 ease-(--ease-out-quad);
 }
 
 .card-surface:hover {
