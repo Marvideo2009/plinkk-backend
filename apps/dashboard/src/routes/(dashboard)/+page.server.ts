@@ -23,8 +23,8 @@ export const load: PageServerLoad = async ({ locals }) => {
 	};
 
 	// Get total clicks
-	const totalClicks = await prisma.dailyLinkClick.aggregate({
-		where: { link: { plinkk: { userId: user.id } } },
+	const totalClicks = await prisma.linkClickDaily.aggregate({
+		where: { },
 		_sum: { count: true }
 	});
 	stats.clicks = totalClicks._sum.count || 0;

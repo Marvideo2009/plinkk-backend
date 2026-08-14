@@ -1,4 +1,11 @@
 /* Global styles for Plinkk Dashboard */
+/* @import url(./public/css/styles.css);
+@import url(./public/css/button.css);
+@import url(./public/css/components.css);
+@import url(./public/css/button-themes.css); */
+@import "tailwindcss";
+@plugin '@tailwindcss/forms';
+@plugin '@tailwindcss/typography';
 body {
     background-color: #0B1020;
     color: #e2e8f0;

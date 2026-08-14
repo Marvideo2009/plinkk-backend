@@ -4,6 +4,7 @@ import { prisma } from '@plinkk/prisma';
 import { createUserSession } from '$lib/server/auth';
 import { sendOtp } from '../../../services/otpService';
 import { logUserAction } from '../../../lib/userLogger';
+import bcrypt from 'bcryptjs';
 import z from 'zod';
 
 export const load: PageServerLoad = async ({ locals, url }) => {
@@ -71,7 +72,7 @@ export const actions: Actions = {
 			return fail(401, { error: 'Identifiants incorrects', email });
 		}
 
-		const valid = await Bun.password.verify(password, user.password);
+		const valid = await bcrypt.compare(password, user.password);
 		if (!valid) {
 			return fail(401, { error: 'Identifiants incorrects', email });
 		}

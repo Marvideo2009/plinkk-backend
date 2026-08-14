@@ -13,16 +13,17 @@
 <svelte:head>
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
-	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+	<!-- <link rel="stylesheet" href="style.css"> -->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
 </svelte:head>
 
-<div class="min-h-screen bg-[#0B1020] font-['Inter',_sans-serif] text-slate-200 selection:bg-violet-500/30">
+<div class="min-h-screen bg-[#0B1020] font-['Inter',sans-serif] text-slate-200 selection:bg-violet-500/30">
 	{#if isAuthPage}
 		<slot />
 	{:else}
 		<DashboardHeader {user} />
 		
-		<main class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
+		<main class="mx-auto max-w-[1600px] px-4 sm:px-6 lg:px-8 py-8">
 			<div class="lg:grid lg:grid-cols-12 lg:gap-8">
 				<DashboardSidebar {user} />
 				

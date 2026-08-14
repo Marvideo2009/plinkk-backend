@@ -50,7 +50,7 @@ export async function validateSession(event: RequestEvent) {
 			where: { id: session.id },
 			data: { 
 				lastActiveAt: now,
-				lastPage: event.url.pathname
+				currentPath: event.url.pathname
 			}
 		});
 	}
