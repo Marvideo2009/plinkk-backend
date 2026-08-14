@@ -25,8 +25,13 @@ if (fs.existsSync(src)) {
     // Remove package.json from dist/generated/prisma to avoid conflict with node16 resolution
     const pkgJsonPath = path.join(dest, 'prisma', 'package.json');
     if (fs.existsSync(pkgJsonPath)) {
-        fs.unlinkSync(pkgJsonPath);
-        console.log('Removed package.json from dist/generated/prisma');
+        fs.readFile(pkgJsonPath, (err, data) => {
+            if (err) throw err;
+            const pkg = JSON.parse(data)
+            pkg.type = "module"
+            fs.writeFileSync(pkgJsonPath, JSON.stringify(pkg, null, 2))
+            console.log('Added type: module in package.json in dist/generated/prisma');
+        })
     }
     console.log('Copied generated files to dist/generated');
 } else {

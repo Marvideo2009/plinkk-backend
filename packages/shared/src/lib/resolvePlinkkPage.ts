@@ -1,4 +1,4 @@
-import { PrismaClient, Visibility } from "@plinkk/prisma";
+import { Plinkk, Prisma, prisma, User, Visibility } from "@plinkk/prisma";
 import { FastifyRequest } from "fastify";
 import "@fastify/secure-session";
 
@@ -9,28 +9,39 @@ export function parseIdentifier(id?: string | null): { kind: 'default' | 'index'
   return { kind: 'slug', value: id };
 }
 
-export async function resolvePlinkkPage(prisma: PrismaClient, username: string, identifier: string | undefined, request?: FastifyRequest): Promise<any> {
-  // we also need the public flag so that we can treat pages
-  // as publicly accessible when the owner has flipped their profile
-  // visibility. this helps after migrations where individual plinkks
-  // might still be marked PRIVATE even though the user is now public.
-  let user = await prisma.user.findUnique({ where: { id: username }, select: { id: true, role: true, isPublic: true } });
+/* const userQuery = {
+  select: {  id: true, role: true, isPublic: true },
+} satisfies Prisma.UserFindFirstArgs;
+
+type ResolvedUser = Prisma.UserGetPayload<typeof userQuery>; */
+
+export type ResolvePlinkkPageResult =
+  | { status: 404; error: 'user_not_found' | 'page_not_found' }
+  | { status: 403; error: 'page_inactive' | 'forbidden' }
+  | {
+      status: 200;
+      user: User;
+      page: Plinkk;
+      isOwner: boolean;
+      isPasswordProtected: boolean;
+    };
+
+export async function resolvePlinkkPage(username: string, identifier: string | undefined, request?: FastifyRequest): Promise<ResolvePlinkkPageResult> {
+  let user = await prisma.user.findUnique({ where: { id: username } });
   if (!user) {
-    // Si pas trouvé par ID, on tente par userName (insensible à la casse si possible)
     user = await prisma.user.findFirst({ 
       where: { 
         OR: [
           { id: username },
           { userName: { equals: username, mode: 'insensitive' } }
         ]
-      }, 
-      select: { id: true, role: true, isPublic: true } 
+      },
     });
   }
   if (!user) return { status: 404 as const, error: 'user_not_found' };
 
   const parsed = parseIdentifier(identifier);
-  let page = await (async () => {
+  let page = await (async (): Promise<Plinkk | null> => {
     if (parsed.kind === 'default') {
       const byDefault = await prisma.plinkk.findFirst({ where: { userId: user.id, isDefault: true } });
       if (byDefault) return byDefault;
@@ -47,20 +58,13 @@ export async function resolvePlinkkPage(prisma: PrismaClient, username: string, 
   const isPrivate = page.visibility === Visibility.PRIVATE;
   const sessionUserId = request && request.session ? (request.session.get('data') as string | undefined) : undefined;
   const isOwner = !!sessionUserId && sessionUserId === user.id;
-  // If the page is marked private we normally block non-owners.
-  // However when the user has indicated their *profile* is public we
-  // treat every plinkk as visible regardless of the individual
-  // visibility flag. This avoids situations where pages remain private
-  // after a migration or after toggling the profile setting.
+
   if (isPrivate && !isOwner) {
     if (!user.isPublic) {
       return { status: 403 as const, error: 'forbidden' };
     }
-    // otherwise allow through (the consumer will see page.visibility still
-    // be PRIVATE but it won't stop rendering)
   }
 
-  // Plinkk protégé par mot de passe (premium feature)
   const isPasswordProtected = !!page.passwordHash;
 
   const isPreview = (request?.query as { preview: string })?.preview === '1';

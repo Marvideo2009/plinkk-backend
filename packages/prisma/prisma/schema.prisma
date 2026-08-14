@@ -1,6 +1,8 @@
 generator client {
-  provider = "prisma-client-js"
+  provider = "prisma-client"
   output   = "../generated/prisma"
+  moduleFormat = "cjs"
+  compilerBuild = "fast"
 }
 
 datasource db {
@@ -254,6 +256,8 @@ model Link {
   category               Category? @relation(fields: [categoryId], references: [id])
   plinkk                 Plinkk?   @relation(fields: [plinkkId], references: [id], onDelete: Cascade)
   user                   User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  linkClickDailies LinkClickDaily[]
 }
 
 model Category {
@@ -484,6 +488,8 @@ model LinkClickDaily {
   linkId String
   date   DateTime @default(now())
   count  Int
+
+  link   Link     @relation(fields: [linkId], references: [id], onDelete: Cascade)
 
   @@id([linkId, date])
   @@map("LinkClickDaily")

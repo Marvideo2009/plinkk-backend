@@ -1,12 +1,9 @@
 {
     "compilerOptions": {
-        "noEmitOnError": false,
         "skipLibCheck": true,
-        "strict": false,
-        "moduleResolution": "node16",
+        "moduleResolution": "bundler",
         "types": ["node"],
-        "lib": ["ES2021"],
-        "module": "node16",
+        "module": "esnext",
         "target": "es2022",
         "outDir": "dist",
         "rootDir": "src",
