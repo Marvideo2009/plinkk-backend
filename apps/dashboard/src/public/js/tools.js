@@ -44,13 +44,13 @@ export function createProfileContainer(profileData) {
         profilePic.src = profileData.profileImage;
     }
     else {
-        profilePic.src = "https://cdn.plinkk.fr/logo.svg";
+        profilePic.src = "https://cdn.plinkk.fr/plinkk-image/logo.svg";
     }
     profilePic.onerror = function () {
         try {
             if (!this._triedFallback) {
                 this._triedFallback = true;
-                this.src = "https://cdn.plinkk.fr/logo.svg";
+                this.src = "https://cdn.plinkk.fr/plinkk-image/logo.svg";
                 return;
             }
         }

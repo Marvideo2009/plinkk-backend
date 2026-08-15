@@ -53,7 +53,7 @@ export function baseEmailTemplate(title: string, content: string): string {
         <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:24px;">
           <tr>
             <td align="center">
-              <img src="https://cdn.plinkk.fr/logo.svg" alt="Plinkk" width="48" height="48" style="display:block;width:48px;height:48px;border-radius:16px;" />
+              <img src="https://cdn.plinkk.fr/plinkk-image/logo.svg" alt="Plinkk" width="48" height="48" style="display:block;width:48px;height:48px;border-radius:16px;" />
             </td>
           </tr>
           <tr>

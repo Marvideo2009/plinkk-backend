@@ -6,7 +6,7 @@ function setupImageFallback(img, wrapper, userName) {
         try {
             if (!this._triedFallback) {
                 this._triedFallback = true;
-                this.src = "https://cdn.plinkk.fr/logo.svg";
+                this.src = "https://cdn.plinkk.fr/plinkk-image/logo.svg";
                 return;
             }
         } catch (e) { console.error('Caught error', e); }
@@ -43,7 +43,7 @@ export function createProfileContainer(profileData) {
     const profilePicWrapper = el('div', { class: 'profile-pic-wrapper' });
     
     const profilePic = el('img', {
-        src: isSafeUrl(profileData.profileImage) ? profileData.profileImage : 'https://cdn.plinkk.fr/logo.svg',
+        src: isSafeUrl(profileData.profileImage) ? profileData.profileImage : 'https://cdn.plinkk.fr/plinkk-image/logo.svg',
         alt: 'Profile Picture',
         class: 'profile-pic',
         loading: 'lazy'

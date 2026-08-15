@@ -49,7 +49,7 @@ export function createProfileContainer(profileData) {
         profilePic.src = profileData.profileImage;
     }
     else {
-        profilePic.src = "https://cdn.plinkk.fr/logo.svg";
+        profilePic.src = "https://cdn.plinkk.fr/plinkk-image/logo.svg";
     }
     // Try a single fallback to the username logo, then stop retrying to avoid infinite loops
     profilePic.onerror = function () {
@@ -57,7 +57,7 @@ export function createProfileContainer(profileData) {
             if (!this._triedFallback) {
                 this._triedFallback = true;
                 // Attempt a single fallback
-                this.src = "https://cdn.plinkk.fr/logo.svg";
+                this.src = "https://cdn.plinkk.fr/plinkk-image/logo.svg";
                 return;
             }
         }

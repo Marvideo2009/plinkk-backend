@@ -45,7 +45,7 @@ async function updateAuthors() {
           email: "team@plinkk.fr",
           password: "$2b$10$dummy.hash.value.for.system.account",
           name: "Plinkk Team",
-          image: "https://cdn.plinkk.fr/logo.svg",
+          image: "https://cdn.plinkk.fr/plinkk-image/logo.svg",
           hasPassword: false,
           emailVerified: true,
           roleId: adminRole?.id,

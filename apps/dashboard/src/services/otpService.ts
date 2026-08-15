@@ -272,7 +272,7 @@ function buildOtpEmailHtml(code: string, magicLink: string): string {
       <!-- Logo -->
       <table cellpadding="0" cellspacing="0" border="0" style="margin-bottom:24px;">
         <tr><td align="center">
-          <img src="https://cdn.plinkk.fr/logo.svg" alt="Plinkk" width="48" style="border-radius:16px;display:block;" />
+          <img src="https://cdn.plinkk.fr/plinkk-image/logo.svg" alt="Plinkk" width="48" style="border-radius:16px;display:block;" />
         </td></tr>
         <tr><td align="center" style="padding-top:10px;">
           <span style="font-size:20px;font-weight:700;color:${white};">Plinkk</span>
