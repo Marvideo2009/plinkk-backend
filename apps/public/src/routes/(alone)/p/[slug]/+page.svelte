@@ -4,7 +4,6 @@
   import type { PageData } from "./$types.js";
   import LinkBoxes from "$lib/components/plinkk/linkBoxes/LinkBoxes.svelte";
   import EmailAndDescription from "$lib/components/plinkk/EmailAndDescription.svelte";
-  import StatusBar from "$lib/components/plinkk/StatusBar.svelte";
   import SocialIconList from "$lib/components/plinkk/SocialIconList.svelte";
   import LabelButtons from "$lib/components/plinkk/LabelButtons.svelte";
   import UserName from "$lib/components/plinkk/UserName.svelte";
@@ -14,16 +13,14 @@
 
   let profileConfig = data;
 
-  // Titre dynamique de la page
   $: pageTitle =
     profileConfig?.page?.name || profileConfig?.user?.name
-      ? `${profileConfig?.page?.name || profileConfig?.user?.name} - Plinkk`
-      : "Plinkk By Klaynight";
+      ? `${profileConfig?.page?.name || profileConfig?.user?.name} — Plinkk`
+      : "Plinkk By PlinkkCorp";
 
   const DEFAULT_LAYOUT = [
-    "profile",
     "username",
-    "statusbar",
+    "profile",
     "labels",
     "social",
     "email",
@@ -67,10 +64,7 @@
   });
 </script>
 
-<Head
-  title="{pageTitle} — Plinkk"
-  description={profileConfig.page.description}
-/>
+<Head title={pageTitle} description={profileConfig.page.description} />
 
 <div class="background"></div>
 <article
@@ -78,49 +72,53 @@
   class="w-full max-w-xl flex flex-col items-center"
   style="background: rgba(0, 0, 0, 0.6); color: white; animation: 1s ease-in-out 0s 1 normal none running fade; --darkreader-inline-bgimage: initial; --darkreader-inline-bgcolor: var(--darkreader-background-00000099, rgba(0, 0, 0, 0.6)); --darkreader-inline-color: var(--darkreader-text-ffffff, #e8e6e3);"
 >
-  <ProfileContainer
-    profileData={{
-      profileLink: profileConfig.publicPath || profileConfig.page?.slug,
-      profileImage: profileConfig.user?.image,
-      profileIcon: profileConfig.page?.icon,
-      profileSiteText: profileConfig.page?.name,
-      profileHoverColor: profileConfig.bgColor?.[0]?.color || "#ffffff",
-      userName: profileConfig.user?.name,
-      cosmetics: profileConfig.settings?.cosmetics,
-	  statusbar: profileConfig.statusBar 
-    }}
-  />
-
-  <UserName
-    profileData={{
-      userName: profileConfig.user?.name || profileConfig.page?.name,
-      isVerified: profileConfig.user?.isVerified,
-      showVerifiedBadge: profileConfig.settings?.showVerifiedBadge,
-      isPartner: profileConfig.user?.isPartner,
-      showPartnerBadge: profileConfig.settings?.showPartnerBadge,
-    }}
-  />
-
-  <LabelButtons profileData={{ labels: profileConfig.labels }} />
-
-  <SocialIconList profileData={{ socialIcon: profileConfig.socialIcon }} />
-
-  <EmailAndDescription
-    profileData={{
-      email: profileConfig.user?.email,
-      description: profileConfig.page?.description,
-    }}
-  />
-
-  <LinkBoxes profileData={profileConfig} />
+  {#each sortedLayout as key (key)}
+    {#if key === "profile"}
+      <ProfileContainer
+        profileData={{
+          profileLink: profileConfig.settings?.profileLink,
+          profileImage: profileConfig.user?.image,
+          profileIcon: profileConfig.settings?.profileIcon,
+          profileSiteText: profileConfig.settings?.profileSiteText,
+          profileHoverColor: profileConfig.bgColor?.[0]?.color || "#ffffff",
+          userName: profileConfig.user?.name,
+          cosmetics: profileConfig.settings?.cosmetics,
+          statusbar: profileConfig.statusBar,
+        }}
+      />
+    {:else if key === "username"}
+      <UserName
+        profileData={{
+          userName: profileConfig.user?.name || profileConfig.page?.name,
+          isVerified: profileConfig.user?.isVerified,
+          showVerifiedBadge: profileConfig.settings?.showVerifiedBadge,
+          isPartner: profileConfig.user?.isPartner,
+          showPartnerBadge: profileConfig.settings?.showPartnerBadge,
+        }}
+      />
+    {:else if key === "labels"}
+      <LabelButtons profileData={{ labels: profileConfig.labels }} />
+    {:else if key === "social"}
+      <SocialIconList profileData={{ socialIcon: profileConfig.socialIcon }} />
+    {:else if key === "email"}
+      <EmailAndDescription
+        profileData={{
+          email: profileConfig.user?.email,
+          description: profileConfig.page?.description,
+        }}
+      />
+    {:else if key === "links"}
+      <LinkBoxes profileData={profileConfig} />
+    {/if}
+  {/each}
 </article>
 <div class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50">
   <a
-	href="/"
-	class="flex items-center gap-2 text-slate-500 hover:text-white transition-colors text-sm"
+    href="/"
+    class="flex items-center gap-2 text-slate-500 hover:text-white transition-colors text-sm"
   >
-	<img src="https://cdn.plinkk.fr/logo.svg" alt="Plinkk" class="w-5 h-5" />
-	Créé avec Plinkk
+    <img src="https://cdn.plinkk.fr/logo.svg" alt="Plinkk" class="w-5 h-5" />
+    Créé avec Plinkk
   </a>
 </div>
 

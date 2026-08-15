@@ -1,6 +1,7 @@
 import { Plinkk, Prisma, prisma, User, Visibility } from "@plinkk/prisma";
 import { FastifyRequest } from "fastify";
 import "@fastify/secure-session";
+import { SafeUser, toSafeUser } from "../types/user";
 
 export function parseIdentifier(id?: string | null): { kind: 'default' | 'index' | 'slug'; value?: number | string } {
   if (!id || id === '' || id === 'default') return { kind: 'default' };
@@ -9,18 +10,12 @@ export function parseIdentifier(id?: string | null): { kind: 'default' | 'index'
   return { kind: 'slug', value: id };
 }
 
-/* const userQuery = {
-  select: {  id: true, role: true, isPublic: true },
-} satisfies Prisma.UserFindFirstArgs;
-
-type ResolvedUser = Prisma.UserGetPayload<typeof userQuery>; */
-
 export type ResolvePlinkkPageResult =
   | { status: 404; error: 'user_not_found' | 'page_not_found' }
   | { status: 403; error: 'page_inactive' | 'forbidden' }
   | {
       status: 200;
-      user: User;
+      user: SafeUser;
       page: Plinkk;
       isOwner: boolean;
       isPasswordProtected: boolean;
@@ -69,5 +64,7 @@ export async function resolvePlinkkPage(username: string, identifier: string | u
 
   const isPreview = (request?.query as { preview: string })?.preview === '1';
 
-  return { status: 200 as const, user, page, isOwner, isPasswordProtected };
+  const safeUser = toSafeUser(user)
+
+  return { status: 200 as const, user: safeUser, page, isOwner, isPasswordProtected };
 }

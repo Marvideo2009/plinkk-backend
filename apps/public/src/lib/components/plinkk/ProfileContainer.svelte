@@ -128,7 +128,7 @@
           {#if !imgFailed}
             <img
               src={currentImageSrc}
-              alt="Profile Picture"
+              alt="Profile"
               class="profile-pic"
               class:opacity-0={!imgLoaded}
               loading="lazy"

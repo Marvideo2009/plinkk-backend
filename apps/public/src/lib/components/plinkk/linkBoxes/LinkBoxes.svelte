@@ -1,8 +1,9 @@
-<script>
+<script lang="ts">
+  import type { PageData } from '../../../../routes/(app)/$types';
   import LinkEmbed from './LinkEmbed.svelte';
   import LinkForm from './LinkForm.svelte';
 
-  export let profileData = {};
+  export let profileData: PageData = {};
 
   $: bgType = profileData.backgroundType || 'color';
   $: actualBgColor = getActualBgColor(profileData, bgType);
@@ -12,7 +13,7 @@
    * @param {{ backgroundColor?: any; background?: any; }} data
    * @param {string} type
    */
-  function getActualBgColor(data, type) {
+  function getActualBgColor(data: { [x: string]: any; }, type: any) {
     let color = data.backgroundColor || '#0c0c0c';
     if (Array.isArray(data.background) && data.background.length > 0) {
       color = data.background[0].color;
@@ -23,7 +24,7 @@
   /**
    * @param {string} color
    */
-  function isLightTheme(color) {
+  function isLightTheme(color: string) {
     if (!color) return false;
     let r, g, b;
     if (color.startsWith('#')) {
@@ -50,8 +51,7 @@
     return luminance > 0.5;
   }
 
-  // Filtrage des liens (Horaires, limites de clics, expiration)
-  $: validLinks = (profileData.links || []).filter(link => {
+  $: validLinks = (profileData.links || []).filter((link: { scheduledAt: string | number | Date; expiresAt: string | number | Date; clickLimit: number; clicks: number; }) => {
     const now = new Date();
     if (link.scheduledAt && new Date(link.scheduledAt) > now) return false;
     if (link.expiresAt && new Date(link.expiresAt) < now) return false;
@@ -69,7 +69,6 @@
     {#each validLinks as link (link.id || link.text)}
       {#if link.type === 'EMBED' && link.embedData}
         <LinkEmbed {link} />
-
       {:else if link.type === 'HEADER'}
         <h3
           class="link-header"
@@ -82,9 +81,8 @@
         <LinkForm {link} {isLight} {profileData} />
 
       {:else}
-        <!-- Lien standard par défaut -->
         <a
-          href={link.url}
+          href={`https://plinkk.fr/click/${link.id}`}
           target="_blank"
           rel="noopener noreferrer"
           class="discord-box standard-link"
