@@ -5,4 +5,6 @@
 </script>
 
 
-<slot />
+<div class="content">
+	<slot />
+</div>

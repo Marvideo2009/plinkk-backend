@@ -1,7 +1,7 @@
 <script lang="ts">
+	import { PUBLIC_DASHBOARD_URL } from "$env/static/public";
 	import Avatar from './Avatar.svelte';
 	export let user: any = null;
-	export let dashboardUrl: string = '/dashboard';
 	export let isDashboard: boolean = false;
 	export let currentPath: string = '';
 
@@ -14,7 +14,7 @@
 		<div class="flex h-16 items-center justify-between gap-4">
 			<div class="flex items-center gap-8">
 				<a href="/" class="flex items-center gap-2.5 transition-opacity hover:opacity-80">
-					<img src="https://cdn.plinkk.fr/logo.svg" alt="Plinkk" class="h-8 w-8" />
+					<img src="https://cdn.plinkk.fr/plinkk-image/logo.svg" alt="Plinkk" class="h-8 w-8" />
 					<span class="text-lg font-bold tracking-tight text-white">Plinkk</span>
 				</a>
 
@@ -39,7 +39,7 @@
 				<div class="hidden md:flex items-center gap-3">
 					{#if _isLogged}
 						{#if user.role && ['ADMIN', 'DEVELOPER', 'MODERATOR'].includes(user.role.id || user.role.name)}
-							<a href="{dashboardUrl}/admin" class="inline-flex items-center justify-center rounded-full bg-rose-500/10 px-4 py-1.5 text-sm font-medium text-rose-400 ring-1 ring-inset ring-rose-500/20 transition-colors hover:bg-rose-500/20 hover:text-rose-300">Admin</a>
+							<a href="{PUBLIC_DASHBOARD_URL}/admin" class="inline-flex items-center justify-center rounded-full bg-rose-500/10 px-4 py-1.5 text-sm font-medium text-rose-400 ring-1 ring-inset ring-rose-500/20 transition-colors hover:bg-rose-500/20 hover:text-rose-300">Admin</a>
 						{/if}
 
 						<div class="relative">
@@ -47,7 +47,7 @@
 								<div class="relative h-8 w-8 shrink-0">
 									<Avatar {user} />
 								</div>
-								<span class="max-w-[100px] truncate text-sm font-medium text-slate-200 group-hover:text-white">
+								<span class="max-w-25 truncate text-sm font-medium text-slate-200 group-hover:text-white">
 									{user.userName || user.id}
 								</span>
 								<svg class="h-4 w-4 text-slate-500 transition-transform group-hover:text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -56,8 +56,8 @@
 							</button>
 						</div>
 					{:else}
-						<a href="{dashboardUrl}/login" class="text-sm font-medium text-slate-300 transition-colors hover:text-white">Se connecter</a>
-						<a href="{dashboardUrl}/login#signup" class="rounded-full bg-white px-4 py-2 text-sm font-semibold text-black transition-transform hover:scale-105 hover:bg-slate-200">S'inscrire</a>
+						<a href="{PUBLIC_DASHBOARD_URL}/login" class="text-sm font-medium text-slate-300 transition-colors hover:text-white">Se connecter</a>
+						<a href="{PUBLIC_DASHBOARD_URL}/login#signup" class="rounded-full bg-white px-4 py-2 text-sm font-semibold text-black transition-transform hover:scale-105 hover:bg-slate-200">S'inscrire</a>
 					{/if}
 				</div>
 			</div>

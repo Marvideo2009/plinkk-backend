@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Head from '$lib/components/Head.svelte';
+	import SvelteMarkdown from "@humanspeak/svelte-markdown"
 	import type { PageData } from './$types';
 
 	export let data: PageData;
@@ -20,10 +21,9 @@
 />
 
 <main class="relative isolate overflow-hidden min-h-screen">
-	<!-- Background Effects -->
 	<div class="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
 		<div class="absolute left-[50%] top-0 -translate-x-1/2 blur-3xl opacity-20" aria-hidden="true">
-			<div class="aspect-[1155/678] w-[72.1875rem] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc]"
+			<div class="aspect-1155/678 w-288.75 bg-linear-to-tr from-[#ff80b5] to-[#9089fc]"
 				style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)">
 			</div>
 		</div>
@@ -39,7 +39,6 @@
 				<div class="flex items-center gap-3 mb-6">
 					<span class="inline-block px-3 py-1 rounded-full text-xs font-bold bg-violet-500/20 text-violet-300 border border-violet-500/30">v{patchNote.version}</span>
 				</div>
-				
 				<h1 class="text-4xl font-bold tracking-tight text-white mb-6">{patchNote.title}</h1>
 
 				<div class="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 text-sm text-slate-400">
@@ -64,13 +63,13 @@
 
 			<div class="prose prose-invert max-w-none">
 				<div class="patch-note-content text-slate-300 leading-relaxed">
-					{@html patchNote.htmlContent}
+					<SvelteMarkdown source={patchNote.content} options={{ breaks: true }} />
 				</div>
 			</div>
 
 			<div class="mt-12 pt-8 border-t border-white/5 text-center">
 				<p class="text-slate-400 mb-6">✨ Merci de votre soutien ! ❤️</p>
-				<a href="/patch-notes" class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-500 hover:to-fuchsia-500 text-white font-medium transition-all active:scale-[0.97]">
+				<a href="/patch-notes" class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-linear-to-r from-violet-600 to-fuchsia-600 hover:from-violet-500 hover:to-fuchsia-500 text-white font-medium transition-all active:scale-[0.97]">
 					Voir tous les patchs
 				</a>
 			</div>

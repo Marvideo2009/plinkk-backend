@@ -27,7 +27,7 @@
 	<!-- Background Effects -->
 	<div class="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
 		<div class="absolute left-[50%] top-0 -translate-x-1/2 blur-3xl opacity-20" aria-hidden="true">
-			<div class="aspect-[1155/678] w-[72.1875rem] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc]"
+			<div class="aspect-1155/678 w-288.75 bg-linear-to-tr from-[#ff80b5] to-[#9089fc]"
 				style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)">
 			</div>
 		</div>
@@ -48,7 +48,7 @@
 						<div class="bg-slate-900/40 backdrop-blur-md rounded-2xl border border-white/5 p-6 sm:p-8 shadow-xl hover:border-violet-500/20 hover:bg-slate-900/60 transition-all duration-300">
 							<div class="flex items-start justify-between gap-4 mb-4">
 								<div class="flex items-center gap-3 flex-1">
-									<span class="flex h-8 w-8 items-center justify-center rounded-lg bg-violet-500/10 text-violet-400 text-sm font-bold flex-shrink-0">{index + 1}</span>
+									<span class="flex h-8 w-8 items-center justify-center rounded-lg bg-violet-500/10 text-violet-400 text-sm font-bold shrink-0">{index + 1}</span>
 									<h3 class="text-lg sm:text-xl font-bold text-white group-hover:text-violet-300 transition-colors truncate">{note.title}</h3>
 								</div>
 								<span class="inline-block px-3 py-1 rounded-full text-xs font-bold bg-violet-500/20 text-violet-300 border border-violet-500/30">v{note.version}</span>

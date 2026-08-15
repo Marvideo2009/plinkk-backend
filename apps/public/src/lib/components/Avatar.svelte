@@ -7,7 +7,7 @@
 	$: if (_av_entity && _av_entity.image) {
 		_av_imgUrl = String(_av_entity.image);
 		if (!/^https?:\/\//i.test(_av_imgUrl) && _av_imgUrl[0] !== '/' && !/^data:/i.test(_av_imgUrl)) {
-			_av_imgUrl = '/public/uploads/avatars/' + _av_imgUrl;
+			_av_imgUrl = 'https://cdn.plinkk.fr/plinkk-images/profiles/' + _av_imgUrl;
 		}
 	} else if (_av_entity) {
 		// Gravatar logic omitted for brevity, but could be added
@@ -34,9 +34,9 @@
 	{/if}
 	<div class="plinkk-av-img bg-slate-800" class:animate-pulse={!_av_imgUrl && !_av_entity?.profileImage}>
 		{#if _av_imgUrl}
-			<img src={_av_imgUrl} alt="Avatar" class="h-full w-full object-cover transition-opacity duration-300" on:load={(e) => e.currentTarget.classList.remove('opacity-0')} />
+			<img src={_av_imgUrl} alt="Avatar" class="h-full w-full object-cover transition-opacity duration-300" crossorigin="anonymous" referrerpolicy="no-referrer" on:load={(e) => e.currentTarget.classList.remove('opacity-0')} />
 		{:else if _av_entity?.profileImage}
-			<img src={_av_entity.profileImage} alt="Avatar" class="h-full w-full object-cover transition-opacity duration-300" on:load={(e) => e.currentTarget.classList.remove('opacity-0')} />
+			<img src={_av_entity.profileImage} alt="Avatar" class="h-full w-full object-cover transition-opacity duration-300" crossorigin="anonymous" referrerpolicy="no-referrer" on:load={(e) => e.currentTarget.classList.remove('opacity-0')} />
 		{:else}
 			{_av_initial}
 		{/if}

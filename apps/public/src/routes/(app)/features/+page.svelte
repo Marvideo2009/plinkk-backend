@@ -1,9 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { PUBLIC_DASHBOARD_URL } from "$env/static/public";
 	import Head from '$lib/components/Head.svelte';
-	import type { PageData } from './$types';
-
-	export let data: PageData;
 
 	onMount(() => {
 		const obs = new IntersectionObserver((entries) => {
@@ -28,7 +26,7 @@
 	<!-- Background Effects -->
 	<div class="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
 		<div class="absolute left-[50%] top-0 -translate-x-1/2 blur-3xl opacity-20" aria-hidden="true">
-			<div class="aspect-[1155/678] w-[72.1875rem] bg-gradient-to-tr from-[#7c3aed] to-[#06b6d4]"
+			<div class="aspect-1155/678 w-288.75 bg-linear-to-tr from-[#7c3aed] to-[#06b6d4]"
 				style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)">
 			</div>
 		</div>
@@ -40,14 +38,14 @@
 			<span class="section-badge bg-violet-500/10 text-violet-400 ring-1 ring-inset ring-violet-500/20 mb-6">
 				Toutes les fonctionnalités
 			</span>
-			<h1 class="text-4xl font-bold tracking-tight text-white sm:text-6xl bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-200 to-slate-400">
+			<h1 class="text-4xl font-bold tracking-tight text-white sm:text-6xl bg-clip-text bg-linear-to-r from-white via-slate-200 to-slate-400">
 				Tout ce dont vous avez besoin,<br>en une seule plateforme.
 			</h1>
 			<p class="mt-6 text-lg leading-8 text-slate-400 max-w-2xl mx-auto">
 				De la personnalisation avancée aux statistiques en temps réel, Plinkk vous offre un outil complet pour créer des pages de liens uniques et performantes.
 			</p>
 			<div class="mt-8 flex items-center justify-center gap-4">
-				<a href="{data.dashboardUrl}/login#signup" class="rounded-xl bg-violet-600 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-violet-500/25 hover:bg-violet-500 transition-all hover:scale-105 hover:shadow-violet-500/40">
+				<a href="{PUBLIC_DASHBOARD_URL}/login#signup" class="rounded-xl bg-violet-600 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-violet-500/25 hover:bg-violet-500 transition-all hover:scale-105 hover:shadow-violet-500/40">
 					Commencer gratuitement
 				</a>
 				<a href="/pricing" class="rounded-xl bg-white/5 px-6 py-3 text-sm font-semibold text-slate-300 ring-1 ring-inset ring-white/10 hover:bg-white/10 hover:text-white transition-all">

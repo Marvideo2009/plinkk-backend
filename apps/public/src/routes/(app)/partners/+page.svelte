@@ -50,7 +50,7 @@
 			Partenaires & Récompenses
 		</div>
 		<h1 class="text-4xl md:text-6xl font-black text-white mb-6 tracking-tight">
-			Soutenez nos <span class="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-fuchsia-400">partenaires</span>
+			Soutenez nos <span class="text-transparent bg-clip-text bg-linear-to-r from-violet-400 to-fuchsia-400">partenaires</span>
 		</h1>
 		<p class="text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed">
 			Accomplissez des quêtes en interagissant avec nos partenaires et gagnez des <strong class="text-violet-400 font-semibold">Plinkk Gems</strong>.
@@ -75,9 +75,9 @@
 						{#if partner.bannerUrl}
 							<img src={partner.bannerUrl} alt="Banner" class="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-500">
 						{:else}
-							<div class="w-full h-full bg-gradient-to-br from-slate-800 to-slate-900">}</div>
+							<div class="w-full h-full bg-linear-to-br from-slate-800 to-slate-900">}</div>
 						{/if}
-						<div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent"></div>
+						<div class="absolute inset-0 bg-linear-to-t from-slate-900 via-slate-900/40 to-transparent"></div>
 						
 						<div class="absolute -bottom-6 left-6 z-10">
 							<div class="w-20 h-20 rounded-2xl bg-slate-950 border-2 border-slate-800 overflow-hidden flex items-center justify-center shadow-2xl relative group-hover:-translate-y-1 transition-transform duration-300">

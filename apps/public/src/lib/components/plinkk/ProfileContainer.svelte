@@ -25,8 +25,8 @@
     } | null;
   } = {};
 
-  const DEFAULT_AVATAR = 'https://cdn.plinkk.fr/logo.svg';
-  const DEFAULT_ICON = 'https://cdn.plinkk.fr/default_profile.png';
+  const DEFAULT_AVATAR = 'https://cdn.plinkk.fr/plinkk-image/default_profile.png';
+  const DEFAULT_ICON = 'https://cdn.plinkk.fr/plinkk-image/logo.svg';
 
   // Extractions réactives
   $: link = profileData?.profileLink?.trim() || '';
@@ -113,7 +113,7 @@
       tabindex="0"
     >
       <!-- Avatar Wrapper -->
-      {#if imageSrc}
+      {#if currentImageSrc}
         <div
           class="profile-pic-wrapper"
           class:animate-pulse={!imgLoaded}
@@ -132,6 +132,8 @@
               class="profile-pic"
               class:opacity-0={!imgLoaded}
               loading="lazy"
+              crossorigin="anonymous"
+              referrerpolicy="no-referrer"
               use:preventDragAndContext
               on:load={() => (imgLoaded = true)}
               on:error={handleImageError}
@@ -161,6 +163,8 @@
                   class="profile-icon"
                   class:opacity-0={!iconLoaded}
                   loading="lazy"
+                  crossorigin="anonymous"
+                  referrerpolicy="no-referrer"
                   use:preventDragAndContext
                   on:load={() => (iconLoaded = true)}
                   on:error={handleIconError}

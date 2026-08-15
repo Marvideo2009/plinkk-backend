@@ -1,13 +1,13 @@
 /* Reset & Modern Foundation */
-* {
+/* * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
     user-select: none;
-}
+} */
 
-body {
+.content {
     font-family: 'Inter', 'Satoshi', -apple-system, BlinkMacSystemFont, sans-serif;
     display: flex;
     justify-content: center;
@@ -27,7 +27,7 @@ body {
 }
 
 /* Conteneur principal ultra-moderne */
-article {
+.content article {
     position: relative;
     text-align: center;
     background: 
@@ -54,7 +54,7 @@ article {
     will-change: transform;
 }
 
-article::before {
+.content article::before {
     content: '';
     position: absolute;
     top: 0;
@@ -73,11 +73,11 @@ article::before {
     z-index: 1;
 }
 
-article:hover::before {
+.content article:hover::before {
     opacity: 1;
 }
 
-article:hover {
+.content article:hover {
     transform: translateY(-4px) scale(1.01);
     box-shadow: 
         0 12px 40px rgba(0, 0, 0, 0.4),
@@ -87,7 +87,7 @@ article:hover {
 }
 
 /* Typographie futuriste */
-h1 {
+.content h1 {
     font-size: 2rem;
     font-weight: 700;
     margin-bottom: 4px;
@@ -106,7 +106,7 @@ h1 {
     text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
-h2 {
+.content h2 {
     font-size: 1rem;
     font-weight: 400;
     margin-bottom: 20px;
@@ -115,7 +115,7 @@ h2 {
     line-height: 1.4;
 }
 
-p {
+.content p {
     font-size: 0.9rem;
     line-height: 1.5;
     opacity: 0.9;
@@ -125,8 +125,6 @@ p {
 .profile-link p {
     margin-bottom: -10px;
 }
-
-
 
 /* Conteneur profile ultra-moderne avec système logo préservé */
 .profile-container {
@@ -411,8 +409,6 @@ p {
     display: block;
 }
 
-
-
 /* Email */
 .email-description-container {
     font-size: 0.9em;
@@ -443,6 +439,7 @@ p {
     transition: background-color 0.3s ease;
     background-color: rgba(255,255,255, 0.2);
 }
+
 .copy-btn:hover {
     background-color: rgba(255,255,255, 0.3);
 }
@@ -561,7 +558,7 @@ p {
     z-index: 3;
 }
 
-footer {
+.content footer {
     /* Use fixed to reliably center the footer at the viewport bottom */
     position: fixed;
     bottom: 10px;
@@ -592,7 +589,7 @@ footer {
     z-index: 999;
 }
 
-footer:hover {
+.content footer:hover {
     background: 
         linear-gradient(135deg, 
             rgba(255, 255, 255, 0.10) 0%, 
@@ -607,17 +604,17 @@ footer:hover {
     border-color: rgba(255, 255, 255, 0.2);
 }
 
-a {
+.content a {
     color: white;
     text-decoration: none;
     transition: all 0.3s ease;
 }
 
-a:hover {
+.content a:hover {
     color: #7289DA;
 }
 
-span img {
+.content span img {
     position: relative;
     width: 50px;
     top: 2.5px;
@@ -625,36 +622,35 @@ span img {
 
 /* Responsive Design amélioré */
 @media (max-width: 480px) {
-    article {
+    .content article {
         margin: 1.5em 10px 1em 10px;
         padding: 20px 16px;
         min-width: auto;
         width: calc(100vw - 20px);
         max-width: 340px;
     }
-    
-    h1 {
+
+    .content h1 {
         font-size: 1.5rem;
     }
-    
-    h2 {
+
+    .content h2 {
         font-size: 0.9rem;
     }
-    
-    
+
     /* Ajustements pour la barre de statut mobile */
     .status-bar-container {
         bottom: 6px;
         right: 6px;
         gap: 8px;
     }
-    
+
     .circle-status-bar {
         width: 20px;
         height: 20px;
         border-width: 3px;
     }
-    
+
     .statusBarText {
         font-size: 0.7em;
         padding: 6px 10px;
@@ -662,7 +658,7 @@ span img {
 }
 
 @media (max-width: 320px) {
-    article {
+    .content article {
         min-width: 200px;
         padding: 16px 12px;
         margin: 1em 5px;
@@ -671,7 +667,7 @@ span img {
         font-size: 1.3em;
     }
     
-    h1 {
+    .content h1 {
         font-size: 1.3rem;
     }
     
@@ -718,7 +714,7 @@ span img {
     z-index: 999;
 }
 
-canvas {
+.content canvas {
     position: absolute;
     top: 0;
     left: 0;
@@ -1224,10 +1220,10 @@ canvas {
   transition: .3s;
   border-radius: 50%;
 }
-input:checked + .slider {
+.content input:checked + .slider {
   background-color: #00ff8f;
 }
-input:checked + .slider:before {
+.content input:checked + .slider:before {
   transform: translateX(18px);
 }
 
@@ -1254,7 +1250,7 @@ input:checked + .slider:before {
 
 /* Footer responsive adjustments */
 @media (max-width: 480px) {
-    footer {
+    .content footer {
         left: 50%;
         transform: translateX(-50%);
         width: calc(100% - 24px);

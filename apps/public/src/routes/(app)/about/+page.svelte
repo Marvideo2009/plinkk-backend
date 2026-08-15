@@ -23,7 +23,7 @@
 	<!-- Background Effects -->
 	<div class="absolute inset-0 -z-10 overflow-hidden">
 		<div class="absolute left-[50%] top-0 -translate-x-1/2 blur-3xl opacity-20" aria-hidden="true">
-			<div class="aspect-[1155/678] w-[72.1875rem] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc]"
+			<div class="aspect-1155/678 w-288.75 bg-linear-to-tr from-[#ff80b5] to-[#9089fc]"
 				style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)">
 			</div>
 		</div>
@@ -32,7 +32,7 @@
 	<div class="mx-auto max-w-7xl px-6 lg:px-8 py-24 sm:py-32">
 		<!-- Hero Section -->
 		<div class="mx-auto max-w-2xl text-center">
-			<h1 class="text-4xl font-bold tracking-tight text-white sm:text-6xl bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-200 to-slate-400">
+			<h1 class="text-4xl font-bold tracking-tight sm:text-6xl bg-clip-text text-transparent bg-linear-to-r from-white via-slate-200 to-slate-400">
 				L'alternative open-source <br> à Linktree.
 			</h1>
 			<p class="mt-6 text-lg leading-8 text-slate-300">
@@ -46,7 +46,7 @@
 						class="rounded-xl bg-white px-5 py-3 text-sm font-semibold text-slate-900 shadow-sm hover:bg-slate-200 transition-all hover:scale-105">
 						Star sur GitHub
 					</a>
-					<a href="https://github.com/PlinkkCorp/plinkk-backend" target="_blank" rel="noopener noreferrer"
+					<a href="https://github.com/PlinkkCorp/plinkk-web" target="_blank" rel="noopener noreferrer"
 						class="rounded-xl bg-slate-800/80 px-4 py-3 text-sm font-semibold text-white shadow-sm hover:bg-slate-700 transition-all hover:scale-105">
 						Repo Backend
 					</a>
@@ -64,12 +64,12 @@
 							<span class="flex items-center gap-1">🍴 {format(data.repoStats['PlinkkCorp/plinkk']?.forks)}</span>
 						</div>
 					</a>
-					<a href="https://github.com/PlinkkCorp/plinkk-backend" target="_blank" rel="noopener noreferrer"
+					<a href="https://github.com/PlinkkCorp/plinkk-web" target="_blank" rel="noopener noreferrer"
 						class="rounded-xl bg-slate-900/30 p-4 border border-white/5 flex flex-col items-start gap-2 hover:bg-slate-900/50 transition-colors group">
 						<div class="font-semibold text-white group-hover:text-violet-300">Plinkk Backend</div>
 						<div class="text-sm text-slate-300 flex items-center gap-4">
-							<span class="flex items-center gap-1">⭐ {format(data.repoStats['PlinkkCorp/plinkk-backend']?.stars)}</span>
-							<span class="flex items-center gap-1">🍴 {format(data.repoStats['PlinkkCorp/plinkk-backend']?.forks)}</span>
+							<span class="flex items-center gap-1">⭐ {format(data.repoStats['PlinkkCorp/plinkk-web']?.stars)}</span>
+							<span class="flex items-center gap-1">🍴 {format(data.repoStats['PlinkkCorp/plinkk-web']?.forks)}</span>
 						</div>
 					</a>
 				</div>

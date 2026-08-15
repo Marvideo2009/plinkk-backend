@@ -61,7 +61,7 @@
 		</div>
 
 		<div class="w-full md:w-auto flex flex-col sm:flex-row gap-3">
-			<div class="relative flex-1 min-w-[300px]">
+			<div class="relative flex-1 min-w-75">
 				<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
 					<svg class="h-5 w-5 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -120,7 +120,7 @@
 							</div>
 						</div>
 						<div class="mt-4 flex items-center gap-2">
-							<a href="/{plinkk.slug}" class="flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-xl bg-white text-slate-950 hover:bg-slate-200 text-xs font-bold transition-colors">
+							<a href="/p/{plinkk.slug}" class="flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-xl bg-white text-slate-950 hover:bg-slate-200 text-xs font-bold transition-colors">
 								Voir
 							</a>
 							<button on:click={() => copyToClipboard(plinkk.slug)} class="p-2 rounded-xl bg-white/5 hover:bg-white/10 text-white border border-white/10 transition-colors">

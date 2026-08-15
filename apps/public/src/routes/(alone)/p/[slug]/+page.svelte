@@ -117,7 +117,7 @@
     href="/"
     class="flex items-center gap-2 text-slate-500 hover:text-white transition-colors text-sm"
   >
-    <img src="https://cdn.plinkk.fr/logo.svg" alt="Plinkk" class="w-5 h-5" />
+    <img src="https://cdn.plinkk.fr/plinkk-image/logo.svg" alt="Plinkk" class="w-5 h-5" />
     Créé avec Plinkk
   </a>
 </div>

@@ -1,7 +1,7 @@
 import type { PageServerLoad } from './$types.js';
 
 export const load: PageServerLoad = async ({ fetch }) => {
-	const repos = ['PlinkkCorp/plinkk', 'PlinkkCorp/plinkk-backend'];
+	const repos = ['PlinkkCorp/plinkk', 'PlinkkCorp/plinkk-web'];
 	
 	const fetchRepoStats = async (repo: string) => {
 		try {
@@ -22,7 +22,7 @@ export const load: PageServerLoad = async ({ fetch }) => {
 	return {
 		repoStats: {
 			'PlinkkCorp/plinkk': stats[0],
-			'PlinkkCorp/plinkk-backend': stats[1]
+			'PlinkkCorp/plinkk-web': stats[1]
 		}
 	};
 };

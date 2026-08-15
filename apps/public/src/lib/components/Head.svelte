@@ -1,7 +1,7 @@
 <script lang="ts">
 	export let title: string = 'Plinkk';
 	export let description: string = 'Crée ta page de liens élégante et personnalisée avec Plinkk.';
-	export let image: string = 'https://cdn.plinkk.fr/logo.svg';
+	export let image: string = 'https://cdn.plinkk.fr/plinkk-image/logo.svg';
 	export let canonical: string | null = null;
 </script>
 

@@ -1,8 +1,6 @@
 <script lang="ts">
 	import Head from '$lib/components/Head.svelte';
-	import type { PageData } from './$types';
-
-	export let data: PageData;
+	import { PUBLIC_DASHBOARD_URL } from "$env/static/public";
 </script>
 
 <Head 
@@ -27,7 +25,7 @@
 			<a href="/" class="px-8 py-3 rounded-xl bg-slate-800 text-white font-semibold hover:bg-slate-700 transition-all">
 				Retour à l'accueil
 			</a>
-			<a href="{data.dashboardUrl}/login#signup" class="px-8 py-3 rounded-xl bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white font-semibold shadow-lg shadow-violet-900/20 hover:shadow-violet-900/40 transition-all active:scale-95">
+			<a href="{PUBLIC_DASHBOARD_URL}/login#signup" class="px-8 py-3 rounded-xl bg-linear-to-r from-violet-600 to-fuchsia-600 text-white font-semibold shadow-lg shadow-violet-900/20 hover:shadow-violet-900/40 transition-all active:scale-95">
 				Créer mon profil
 			</a>
 		</div>

@@ -6,7 +6,6 @@ import { resolvePlinkkPage, filterScheduledLinks } from '@plinkk/shared';
 export const load: PageServerLoad = async ({ params, request, locals }) => {
     const { slug } = params;
 
-    // Reserved routes check (though SvelteKit handles this via file routing)
     const reserved = ['public', 'api', 'dashboard', 'login', 'logout', 'register', 'totp', 'users', 'patch-notes', 'pricing', 'features', 'about', 'terms', 'cgv', 'privacy', 'cookies', 'legal', 'partners', 'docs'];
     if (reserved.includes(slug)) {
         throw error(404, 'Not found');

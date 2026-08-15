@@ -1,9 +1,7 @@
 <script lang="ts">
 	import Head from '$lib/components/Head.svelte';
 	import Pricing from '$lib/components/Pricing.svelte';
-	import type { PageData } from './$types';
-
-	export let data: PageData;
+	import { PUBLIC_DASHBOARD_URL } from "$env/static/public";
 </script>
 
 <Head 
@@ -12,5 +10,5 @@
 />
 
 <main class="max-w-7xl mx-auto px-4 py-24 sm:px-6 lg:px-8">
-	<Pricing dashboardUrl={data.dashboardUrl} />
+	<Pricing dashboardUrl={PUBLIC_DASHBOARD_URL} />
 </main>
