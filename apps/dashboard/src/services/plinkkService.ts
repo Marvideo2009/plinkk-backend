@@ -1,4 +1,4 @@
-import { prisma } from "@plinkk/prisma";
+import { prisma, type Plinkk } from "@plinkk/prisma";
 
 export async function getPublicPath(userId: string): Promise<string> {
   const defaultPlinkk = await prisma.plinkk.findFirst({
@@ -60,7 +60,7 @@ export async function getPlinkkConfig(plinkkId: string, userId: string) {
   };
 }
 
-export function getSelectedPlinkk(pages: any[], plinkkId?: string) {
+export function getSelectedPlinkk(pages: Plinkk[], plinkkId?: string) {
   if (plinkkId) {
     const found = pages.find((p) => p.id === plinkkId);
     if (found) return found;

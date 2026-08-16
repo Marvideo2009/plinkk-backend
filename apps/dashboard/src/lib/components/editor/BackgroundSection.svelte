@@ -294,9 +294,9 @@
 			{#if bgType === 'video' || bgType === 'image'}
 				<div class="bg-options space-y-4">
 					<div class="p-4 rounded-xl bg-slate-950 border border-slate-800 relative overflow-hidden">
-						<div class="absolute inset-0 bg-slate-900/60 backdrop-blur-[2px] z-10 flex items-center justify-center">
+						<!-- <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-[2px] z-10 flex items-center justify-center">
 							<span class="px-3 py-1 bg-violet-600 text-white text-xs font-bold rounded-full shadow-lg">Bientôt disponible</span>
-						</div>
+						</div> -->
 						<label class="block text-sm font-medium text-slate-400 mb-3">
 							{bgType === 'video' ? "Vidéo d'arrière-plan (.mp4)" : "Image d'arrière-plan"}
 						</label>
@@ -305,8 +305,8 @@
 								<input 
 									type="url" 
 									value={bgType === 'video' ? plinkk.backgroundVideo : plinkk.backgroundImage}
+									oninput={(e) => handleUpdate(bgType === "video" ? "backgroundVideo" : "backgroundImage", e.currentTarget.value)}
 									class="flex-1 px-3 py-2.5 rounded-lg bg-slate-900 border border-slate-700 focus:border-violet-500 outline-none text-slate-200 text-sm"
-									disabled
 								/>
 							</div>
 						</div>

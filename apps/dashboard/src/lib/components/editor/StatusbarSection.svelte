@@ -52,7 +52,7 @@
 					onchange={(e) => handleUpdate('statusVisible', e.currentTarget.checked)}
 					class="sr-only peer"
 				>
-				<div class="w-11 h-6 bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-violet-600"></div>
+				<div class="w-11 h-6 bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-violet-600"></div>
 			</label>
 		</div>
 
@@ -63,7 +63,7 @@
 					<button 
 						type="button" 
 						onclick={openEmojiPicker}
-						class="w-full h-[46px] rounded-xl bg-slate-950 border border-slate-800 text-xl flex items-center justify-center hover:bg-slate-900 transition-colors"
+						class="w-full h-11.5 rounded-xl bg-slate-950 border border-slate-800 text-xl flex items-center justify-center hover:bg-slate-900 transition-colors"
 					>
 						{plinkk.statusEmoji || '👋'}
 					</button>

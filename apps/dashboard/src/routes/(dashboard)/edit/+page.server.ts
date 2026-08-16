@@ -28,7 +28,7 @@ export const load: PageServerLoad = async ({ locals, url }) => {
   }
 
   if (!selectedForView && pages.length === 0) {
-     throw redirect(302, "/onboarding");
+    throw redirect(302, "/onboarding");
   }
 
   if (!selectedForView) {
@@ -44,7 +44,7 @@ export const load: PageServerLoad = async ({ locals, url }) => {
       where: { plinkkId: currentPlinkkId },
       orderBy: { order: "asc" },
     }),
-    generateTheme(user.id)
+    generateTheme(user.id),
   ]);
 
   const maxLinks = getUserLimits(user).maxLinks;
@@ -64,65 +64,153 @@ export const load: PageServerLoad = async ({ locals, url }) => {
     gravatarUrl,
     categories,
     themes: themesData,
-    frontendUrl: process.env.FRONTEND_URL || 'https://plinkk.fr'
+    frontendUrl: process.env.FRONTEND_URL || "https://plinkk.fr",
   };
 };
 
 export const actions: Actions = {
   update: async ({ request, locals, url }) => {
     const user = locals.user;
-    if (!user) return { success: false, error: 'Unauthorized' };
+    if (!user) return { success: false, error: "Unauthorized" };
 
-    const { field, value } = await request.json();
+    const data = await request.formData();
+    const field = data.get("field") as string;
+    let value = data.get("value");
+
+    try {
+      if (typeof value === "string") value = JSON.parse(value);
+    } catch {}
+
     const plinkkId = url.searchParams.get("plinkkId");
     const pages = await getPlinkksByUserId(user.id);
     const selected = getSelectedPlinkk(pages, plinkkId || undefined);
 
-    if (!selected) return { success: false, error: 'Plinkk not found' };
+    if (!selected) return { success: false, error: "Plinkk not found" };
 
     try {
-      // Handle different fields (many are in PlinkkSettings)
       const settingsFields = [
-        'affichageEmail', 'backgroundType', 'backgroundImage', 'backgroundVideo',
-        'canvaEnable', 'selectedCanvasIndex', 'selectedThemeIndex',
-        'selectedAnimationIndex', 'selectedAnimationButtonIndex', 'selectedAnimationBackgroundIndex',
-        'fontFamily', 'buttonStyle', 'layoutOrder', 'statusVisible', 'statusEmoji', 'statusText',
-        'delayAnimationButton', 'animationDuration'
+        "affichageEmail",
+        "backgroundType",
+        "backgroundImage",
+        "backgroundVideo",
+        "canvaEnable",
+        "selectedCanvasIndex",
+        "selectedThemeIndex",
+        "selectedAnimationIndex",
+        "selectedAnimationButtonIndex",
+        "selectedAnimationBackgroundIndex",
+        "fontFamily",
+        "buttonStyle",
+        "layoutOrder",
+        "statusVisible",
+        "statusEmoji",
+        "statusText",
+        "delayAnimationButton",
+        "animationDuration",
+        "showVerifiedBadge",
+        "showPartnerBadge",
+        "buttonThemeEnable",
       ];
 
       if (settingsFields.includes(field)) {
         await prisma.plinkkSettings.update({
           where: { plinkkId: selected.id },
-          data: { [field]: value }
+          data: { [field]: value },
         });
-      } else if (field === 'name' || field === 'bio' || field === 'imageUrl' || field === 'pseudo') {
+      } else if (
+        field === "name" ||
+        field === "bio" ||
+        field === "imageUrl" ||
+        field === "pseudo"
+      ) {
         const updateData: any = { [field]: value };
-        // If pseudo changes, slug usually follows or is the same
-        if (field === 'pseudo') updateData.slug = value;
-        
+        if (field === "pseudo") updateData.slug = value;
+
         await prisma.plinkk.update({
           where: { id: selected.id },
-          data: updateData
+          data: updateData,
         });
+      } else if (field === "background") {
+        const bgColor = (value as any) as { color: string; stop: number }[];
+        if (bgColor.length === 0) {
+          await prisma.backgroundColor.deleteMany({
+            where: { plinkkId: selected.id },
+          });
+        } else {
+          const background = await prisma.backgroundColor.findMany({
+            where: { plinkkId: selected.id },
+          });
+          if (background.length === 0) {
+            await prisma.backgroundColor.createMany({
+              data: bgColor.map((bg) => {
+                return {
+                  userId: selected.userId,
+                  color: bg.color,
+                  plinkkId: selected.id,
+                  stop: bg.stop,
+                };
+              }),
+            });
+          } else if (bgColor.length === background.length) {
+            const updatePromises = background.map((bg) =>
+              prisma.backgroundColor.update({
+                data: {
+                  color: bg.color,
+                  stop: bg.stop,
+                },
+                where: { id: bg.id },
+              }),
+            );
+            await Promise.all(updatePromises);
+          } else {
+            await prisma.$transaction([
+              prisma.backgroundColor.deleteMany({
+                where: { plinkkId: selected.id },
+              }),
+              prisma.backgroundColor.createMany({
+                data: bgColor.map((bg) => ({
+                  userId: selected.userId,
+                  color: bg.color,
+                  plinkkId: selected.id,
+                  stop: bg.stop,
+                })),
+              }),
+            ]);
+          }
+        }
+      } else if (field === "backgroundColor") {
+        await prisma.$transaction([
+              prisma.backgroundColor.deleteMany({
+                where: { plinkkId: selected.id },
+              }),
+              prisma.backgroundColor.create({
+                data: {
+                  userId: selected.userId,
+                  color: value as string,
+                  plinkkId: selected.id,
+                  stop: 0,
+                },
+              }),
+            ]);
       }
 
       return { success: true };
     } catch (e) {
-      console.error('Update action error:', e);
-      return { success: false, error: 'Database update failed' };
+      console.error("Update action error:", e);
+      return { success: false, error: "Database update failed" };
     }
   },
 
   saveLink: async ({ request, locals, url }) => {
     const user = locals.user;
-    if (!user) return { success: false, error: 'Unauthorized' };
+    if (!user) return { success: false, error: "Unauthorized" };
 
     const data = await request.json();
     const plinkkId = url.searchParams.get("plinkkId");
     const pages = await getPlinkksByUserId(user.id);
     const selected = getSelectedPlinkk(pages, plinkkId || undefined);
 
-    if (!selected) return { success: false, error: 'Plinkk not found' };
+    if (!selected) return { success: false, error: "Plinkk not found" };
 
     try {
       if (data.id) {
@@ -143,14 +231,14 @@ export const actions: Actions = {
             forceAppOpen: data.forceAppOpen,
             clickLimit: data.clickLimit,
             formData: data.formData || undefined,
-            embedData: data.embedData || undefined
-          }
+            embedData: data.embedData || undefined,
+          },
         });
       } else {
         // Create
         const maxIndex = await prisma.link.aggregate({
           where: { plinkkId: selected.id },
-          _max: { index: true }
+          _max: { index: true },
         });
         const nextIndex = (maxIndex._max.index ?? -1) + 1;
 
@@ -172,43 +260,43 @@ export const actions: Actions = {
             clickLimit: data.clickLimit,
             formData: data.formData || undefined,
             embedData: data.embedData || undefined,
-            index: nextIndex
-          }
+            index: nextIndex,
+          },
         });
       }
       return { success: true };
     } catch (e) {
-      console.error('SaveLink error:', e);
-      return { success: false, error: 'Failed to save link' };
+      console.error("SaveLink error:", e);
+      return { success: false, error: "Failed to save link" };
     }
   },
 
   deleteLink: async ({ request, locals }) => {
     const user = locals.user;
-    if (!user) return { success: false, error: 'Unauthorized' };
+    if (!user) return { success: false, error: "Unauthorized" };
 
     const { id } = await request.json();
     try {
       await prisma.link.delete({
-        where: { id, userId: user.id }
+        where: { id, userId: user.id },
       });
       return { success: true };
     } catch (e) {
-      console.error('DeleteLink error:', e);
-      return { success: false, error: 'Failed to delete link' };
+      console.error("DeleteLink error:", e);
+      return { success: false, error: "Failed to delete link" };
     }
   },
 
   saveSocialIcon: async ({ request, locals, url }) => {
     const user = locals.user;
-    if (!user) return { success: false, error: 'Unauthorized' };
+    if (!user) return { success: false, error: "Unauthorized" };
 
     const data = await request.json();
     const plinkkId = url.searchParams.get("plinkkId");
     const pages = await getPlinkksByUserId(user.id);
     const selected = getSelectedPlinkk(pages, plinkkId || undefined);
 
-    if (!selected) return { success: false, error: 'Plinkk not found' };
+    if (!selected) return { success: false, error: "Plinkk not found" };
 
     try {
       if (data.id) {
@@ -216,8 +304,8 @@ export const actions: Actions = {
           where: { id: data.id, userId: user.id },
           data: {
             icon: data.icon,
-            url: data.url
-          }
+            url: data.url,
+          },
         });
       } else {
         await prisma.socialIcon.create({
@@ -225,30 +313,30 @@ export const actions: Actions = {
             userId: user.id,
             plinkkId: selected.id,
             icon: data.icon,
-            url: data.url
-          }
+            url: data.url,
+          },
         });
       }
       return { success: true };
     } catch (e) {
-      console.error('SaveSocialIcon error:', e);
-      return { success: false, error: 'Failed to save social icon' };
+      console.error("SaveSocialIcon error:", e);
+      return { success: false, error: "Failed to save social icon" };
     }
   },
 
   deleteSocialIcon: async ({ request, locals }) => {
     const user = locals.user;
-    if (!user) return { success: false, error: 'Unauthorized' };
+    if (!user) return { success: false, error: "Unauthorized" };
 
     const { id } = await request.json();
     try {
       await prisma.socialIcon.delete({
-        where: { id, userId: user.id }
+        where: { id, userId: user.id },
       });
       return { success: true };
     } catch (e) {
-      console.error('DeleteSocialIcon error:', e);
-      return { success: false, error: 'Failed to delete social icon' };
+      console.error("DeleteSocialIcon error:", e);
+      return { success: false, error: "Failed to delete social icon" };
     }
-  }
+  },
 };

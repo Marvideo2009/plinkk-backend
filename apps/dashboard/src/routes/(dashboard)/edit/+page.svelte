@@ -62,19 +62,21 @@
     isSaving = true;
     saveError = false;
 
+    const formData = new FormData();
+    formData.append("field", field);
+    formData.append(
+      "value",
+      typeof value === "object" ? JSON.stringify(value) : value,
+    );
+
     try {
       const res = await fetch(`?/update`, {
         method: "POST",
-        body: JSON.stringify({ field, value }),
-        headers: {
-          "x-sveltekit-action": "true",
-          "content-type": "application/json",
-        },
+        body: formData,
       });
 
       if (res.ok) {
         const result = await res.json();
-        // Update local state if needed (usually SvelteKit does this via data refresh if we return it)
         lastSavedAt = new Date();
         syncToPreview();
       } else {
@@ -97,7 +99,7 @@
     try {
       const res = await fetch(`?/${action}`, {
         method: "POST",
-        body: JSON.stringify(data),
+        body: objectToFormData(data),
         headers: {
           "x-sveltekit-action": "true",
           "content-type": "application/json",
@@ -179,6 +181,42 @@
     }
   }
 
+  function objectToFormData(
+    obj: Record<string, any>,
+    formData = new FormData(),
+    parentKey = "",
+  ): FormData {
+    for (const key in obj) {
+      if (!Object.prototype.hasOwnProperty.call(obj, key)) continue;
+
+      const value = obj[key];
+      const propName = parentKey ? `${parentKey}[${key}]` : key;
+
+      if (value === null || value === undefined) {
+      } else if (value instanceof File || value instanceof Blob) {
+        formData.append(propName, value);
+      } else if (Array.isArray(value)) {
+        value.forEach((item, index) => {
+          if (
+            typeof item === "object" &&
+            !(item instanceof File) &&
+            !(item instanceof Blob)
+          ) {
+            objectToFormData(item, formData, `${propName}[${index}]`);
+          } else {
+            formData.append(`${propName}[]`, item);
+          }
+        });
+      } else if (typeof value === "object") {
+        objectToFormData(value, formData, propName);
+      } else {
+        formData.append(propName, String(value));
+      }
+    }
+
+    return formData;
+  }
+
   onMount(() => {
     // Initial sync
     setTimeout(syncToPreview, 1000);
@@ -192,7 +230,7 @@
   >
     <div class="flex items-center gap-4">
       <a
-        href="/dashboard"
+        href="/"
         class="p-2 rounded-lg hover:bg-white/5 transition-colors text-slate-400 hover:text-white"
       >
         <svg
@@ -296,9 +334,7 @@
         </ul>
       </nav>
 
-      <div
-        class="space-y-6"
-      >
+      <div class="space-y-6">
         <div class="max-w-2xl mx-auto pb-20">
           {#if activeTab === "profile"}
             <ProfileSection
@@ -349,7 +385,7 @@
               onupdate={(field, value) => updatePlinkk(field, value)}
               onaddLabel={handleAddLabel}
               oneditLabel={(data) => {
-                /* handle edit label */
+                console.log(data)
               }}
               ondeleteLabel={(data) =>
                 handleAction("deleteLabel", { id: data.id })}
@@ -394,94 +430,96 @@
             id="status"
             class="text-xs text-slate-400 opacity-0 transition-opacity mx-auto mb-2"
           ></div>
+          <div
+            id="previewWrapper"
+            class="relative z-10 bg-black rounded-4xl overflow-hidden border-[6px] border-slate-800 shadow-inner aspect-9/19 max-h-[80vh] mx-auto"
+          >
+            <iframe
+              src="{data.frontendUrl}/p/{plinkk.slug || plinkk.id}?preview=1"
+              title="Preview"
+              id="preview"
+              class="w-full h-full bg-white"
+              frameborder="0"
+            ></iframe>
             <div
-              id="previewWrapper"
-              class="relative z-10 bg-black rounded-4xl overflow-hidden border-[6px] border-slate-800 shadow-inner aspect-9/19 max-h-[80vh] mx-auto"
+              id="previewControls"
+              class="absolute bottom-4 left-0 right-0 flex justify-center z-30 pointer-events-none"
             >
-              <iframe
-                src="{data.frontendUrl}/p/{plinkk.slug || plinkk.id}?preview=1"
-                title="Preview"
-                id="preview"
-                class="w-full h-full bg-white"
-                frameborder="0"
-              ></iframe>
               <div
-                id="previewControls"
-                class="absolute bottom-4 left-0 right-0 flex justify-center z-30 pointer-events-none"
+                class="pointer-events-auto control-pill flex items-center gap-3 shadow-xl"
               >
-                <div
-                  class="pointer-events-auto control-pill flex items-center gap-3 shadow-xl"
-                >
-                  <div class="control-actions flex items-center gap-2">
-                    <button
-                      id="previewReload"
-                      class="control-btn"
-                      title="Recharger"
-                      aria-label="Recharger"
-                      onclick={() => document.getElementById('preview').src = document.getElementById('preview').src}
+                <div class="control-actions flex items-center gap-2">
+                  <button
+                    id="previewReload"
+                    class="control-btn"
+                    title="Recharger"
+                    aria-label="Recharger"
+                    onclick={() =>
+                      (document.getElementById("preview").src =
+                        document.getElementById("preview").src)}
+                  >
+                    <svg
+                      class="h-5 w-5 text-slate-300"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
                     >
-                      <svg
-                        class="h-5 w-5 text-slate-300"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      >
-                        <path
-                          d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"
-                        ></path>
-                        <path d="M3 3v5h5"></path>
-                        <path
-                          d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"
-                        ></path>
-                        <path d="M16 21h5v-5"></path>
-                      </svg>
-                    </button>
-                    <a
-                      id="previewOpen"
-                      href="https://plinkk.fr/p/marvideo"
-                      target="_blank"
-                      class="control-btn"
-                      title="Ouvrir"
-                      aria-label="Ouvrir"
+                      <path
+                        d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"
+                      ></path>
+                      <path d="M3 3v5h5"></path>
+                      <path
+                        d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"
+                      ></path>
+                      <path d="M16 21h5v-5"></path>
+                    </svg>
+                  </button>
+                  <a
+                    id="previewOpen"
+                    href="https://plinkk.fr/p/marvideo"
+                    target="_blank"
+                    class="control-btn"
+                    title="Ouvrir"
+                    aria-label="Ouvrir"
+                  >
+                    <svg
+                      class="h-5 w-5 text-slate-300"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
                     >
-                      <svg
-                        class="h-5 w-5 text-slate-300"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                      >
-                        <path
-                          d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
-                        ></path>
-                        <polyline points="15 3 21 3 21 9"></polyline>
-                        <line x1="10" y1="14" x2="21" y2="3"></line>
-                      </svg>
-                    </a>
-                    <button
-                      id="previewReturn"
-                      class="control-btn hidden"
-                      title="Retour à la vue originale"
-                      aria-label="Retour"
+                      <path
+                        d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
+                      ></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                  <button
+                    id="previewReturn"
+                    class="control-btn hidden"
+                    title="Retour à la vue originale"
+                    aria-label="Retour"
+                  >
+                    <svg
+                      class="h-5 w-5 text-slate-300"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
                     >
-                      <svg
-                        class="h-5 w-5 text-slate-300"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                      >
-                        <path d="M19 12H6"></path>
-                        <path d="M12 5l-7 7 7 7"></path>
-                      </svg>
-                    </button>
-                  </div>
+                      <path d="M19 12H6"></path>
+                      <path d="M12 5l-7 7 7 7"></path>
+                    </svg>
+                  </button>
                 </div>
               </div>
             </div>
+          </div>
 
           <!-- <div class="mt-8 flex flex-col items-center gap-2">
             <div
