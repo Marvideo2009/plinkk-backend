@@ -231,7 +231,7 @@ model Cosmetic {
 
 model Link {
   id                     String    @id @default(nanoid(16))
-  icon                   String?   @default("https://cdn.plinkk.fr/icons/link-generic.svg")
+  icon                   String?   @default("https://cdn.plinkk.fr/plinkk-image/icons/link-generic.svg")
   url                    String    @default("https://github.com/link")
   text                   String?   @default("Link")
   name                   String?   @default("Link")

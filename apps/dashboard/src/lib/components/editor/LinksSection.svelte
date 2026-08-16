@@ -89,7 +89,7 @@
 					tabindex="0"
 				>
 					<img 
-						src={icon.icon.startsWith('http') || icon.icon.startsWith('/') ? icon.icon : `https://cdn.plinkk.fr/icons/${icon.icon}.svg`}
+						src={icon.icon.startsWith('http') || icon.icon.startsWith('/') ? icon.icon : `https://cdn.plinkk.fr/plinkk-image/icons/${icon.icon}.svg`}
 						alt={icon.name || "Social Icon"}
 						class="size-6 object-contain"
 					/>

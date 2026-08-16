@@ -513,7 +513,7 @@ export function createLinkBoxes(profileData) {
             toggle.className = "form-toggle-btn";
 
             const icon = document.createElement("img");
-            icon.src = link.icon || 'https://cdn.plinkk.fr/icons/mail.svg';
+            icon.src = link.icon || 'https://cdn.plinkk.fr/plinkk-image/icons/mail.svg';
             icon.className = "w-6 h-6 object-contain";
             icon.loading = "lazy";
             icon.style.position = "relative";

@@ -62,7 +62,7 @@
 						<div class="size-16 rounded-2xl bg-slate-950 border border-white/10 flex items-center justify-center shrink-0 overflow-hidden">
 							{#if iconName}
 								<img 
-									src={iconName.startsWith('http') || iconName.startsWith('/') ? iconName : `https://cdn.plinkk.fr/icons/${iconName}.svg`} 
+									src={iconName.startsWith('http') || iconName.startsWith('/') ? iconName : `https://cdn.plinkk.fr/plinkk-image/icons/${iconName}.svg`} 
 									alt="Selected icon" 
 									class="size-8 object-contain" 
 								/>

@@ -68,7 +68,7 @@
             class="absolute inset-0 bg-linear-to-r from-violet-600 to-indigo-600 rounded-2xl blur-lg opacity-50 group-hover:opacity-75 transition-opacity"
           ></div>
           <img
-            src="https://cdn.plinkk.fr/logo.svg"
+            src="https://cdn.plinkk.fr/plinkk-image/logo.svg"
             alt="Plinkk"
             class="relative h-12 w-12 rounded-2xl shadow-2xl"
           />

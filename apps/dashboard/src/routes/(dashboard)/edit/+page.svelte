@@ -170,7 +170,7 @@
   }
 
   function syncToPreview() {
-    const iframe = document.querySelector("iframe") as HTMLIFrameElement;
+    const iframe = document.getElementById("preview") as HTMLIFrameElement;
     if (iframe && iframe.contentWindow) {
       iframe.contentWindow.postMessage(
         { type: "SYNC_CONFIG", config: plinkk },
@@ -399,8 +399,9 @@
               class="relative z-10 bg-black rounded-4xl overflow-hidden border-[6px] border-slate-800 shadow-inner aspect-9/19 max-h-[80vh] mx-auto"
             >
               <iframe
-                src="{data.frontendUrl}/p/{plinkk.slug || plinkk.id}?preview=true"
+                src="{data.frontendUrl}/p/{plinkk.slug || plinkk.id}?preview=1"
                 title="Preview"
+                id="preview"
                 class="w-full h-full bg-white"
                 frameborder="0"
               ></iframe>
@@ -440,7 +441,7 @@
                     </button>
                     <a
                       id="previewOpen"
-                      href="https://plinkk.fr/marvideo"
+                      href="https://plinkk.fr/p/marvideo"
                       target="_blank"
                       class="control-btn"
                       title="Ouvrir"

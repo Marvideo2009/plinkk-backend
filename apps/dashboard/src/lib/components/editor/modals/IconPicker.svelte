@@ -136,11 +136,11 @@
 								<div class="grid grid-cols-[repeat(auto-fill,minmax(100px,1fr))] gap-3">
 									{#each filteredIcons as icon}
 										<button 
-											onclick={() => handleSelect(icon.url || `https://cdn.plinkk.fr/icons/${icon.slug}.svg`)}
+											onclick={() => handleSelect(icon.url || `https://cdn.plinkk.fr/plinkk-image/icons/${icon.slug}.svg`)}
 											class="group aspect-square p-3 flex flex-col items-center justify-center gap-2 rounded-xl bg-slate-950/50 border border-white/5 hover:border-violet-500/50 hover:bg-white/5 transition-all"
 										>
 											<img 
-												src={icon.url || `https://cdn.plinkk.fr/icons/${icon.slug}.svg`} 
+												src={icon.url || `https://cdn.plinkk.fr/plinkk-image/icons/${icon.slug}.svg`} 
 												alt={icon.displayName} 
 												class="w-8 h-8 object-contain transition-transform group-hover:scale-110" 
 											/>

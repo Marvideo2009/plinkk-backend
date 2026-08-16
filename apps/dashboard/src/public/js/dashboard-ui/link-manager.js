@@ -388,13 +388,13 @@ export class LinkManager {
                 if (s.url) s.url.classList.add('hidden');
                 if (s.formConfig) s.formConfig.classList.remove('hidden');
                 if (!this.currentEditingId && this.inputs.iconInput && !this.inputs.iconInput.value) {
-                    this.inputs.iconInput.value = 'https://cdn.plinkk.fr/icons/mail.svg';
+                    this.inputs.iconInput.value = 'https://cdn.plinkk.fr/plinkk-image/icons/mail.svg';
                 }
                 break;
             case 'EMBED':
                 if (s.url) s.url.classList.remove('hidden');
                 if (!this.currentEditingId && this.inputs.iconInput && !this.inputs.iconInput.value) {
-                    this.inputs.iconInput.value = 'https://cdn.plinkk.fr/icons/embed.png';
+                    this.inputs.iconInput.value = 'https://cdn.plinkk.fr/plinkk-image/icons/embed.png';
                 }
                 break;
             case 'MUSIC':

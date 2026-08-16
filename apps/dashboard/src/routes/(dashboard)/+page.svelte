@@ -76,7 +76,7 @@
 						</div>
 					</div>
 					<p class="text-slate-400 text-sm font-medium">Vues totales</p>
-					<h3 class="text-3xl font-bold text-white mt-1">{fmt.format(stats.views)}</h3>
+					<h3 class="text-3xl font-bold text-white mt-1">{fmt.format(stats?.views ?? "0")}</h3>
 				</div>
 				<div class="bg-slate-900/50 border border-slate-800 p-6 rounded-2xl hover:border-slate-700 transition-colors">
 					<div class="flex items-center justify-between mb-4">
@@ -88,7 +88,7 @@
 						</div>
 					</div>
 					<p class="text-slate-400 text-sm font-medium">Clics totaux</p>
-					<h3 class="text-3xl font-bold text-white mt-1">{fmt.format(stats.clicks)}</h3>
+					<h3 class="text-3xl font-bold text-white mt-1">{fmt.format(stats?.clicks ?? "0")}</h3>
 				</div>
 				<div class="bg-slate-900/50 border border-slate-800 p-6 rounded-2xl hover:border-slate-700 transition-colors">
 					<div class="flex items-center justify-between mb-4">
@@ -99,7 +99,7 @@
 						</div>
 					</div>
 					<p class="text-slate-400 text-sm font-medium">Taux de clic (CTR)</p>
-					<h3 class="text-3xl font-bold text-white mt-1">{stats.ctr}</h3>
+					<h3 class="text-3xl font-bold text-white mt-1">{stats?.ctr}</h3>
 				</div>
 			</div>
 
@@ -212,7 +212,7 @@
 						<div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-1/3 h-6 bg-slate-950 rounded-b-2xl z-20"></div>
 
 						<div class="w-full h-full rounded-[2.3rem] overflow-hidden bg-white relative z-10">
-							<iframe src="{frontendUrl}/p/{plinkk?.slug || user?.id}?preview=1" class="w-full h-full border-0" title="Preview"></iframe>
+							<iframe src="{frontendUrl}/p/{plinkk?.slug || user?.id}?preview=1" class="w-full h-full border-0 no-scrollbar" title="Preview"></iframe>
 						</div>
 					</div>
 

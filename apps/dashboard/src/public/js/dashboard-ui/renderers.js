@@ -286,7 +286,7 @@ export function renderSocial({ container, addBtn, socials, scheduleAutoSave }) {
       const iconContainer = el('div', { class: 'h-10 w-10 rounded bg-slate-800 animate-pulse shrink-0 overflow-hidden border border-slate-700 flex items-center justify-center' });
       let srcUrl = '';
       if (s.icon) {
-        srcUrl = isUrlish(s.icon) ? s.icon : `https://cdn.plinkk.fr/icons/${s.icon}.svg`;
+        srcUrl = isUrlish(s.icon) ? s.icon : `https://cdn.plinkk.fr/plinkk-image/icons/${s.icon}.svg`;
       }
       const iconImg = el('img', {
         class: 'h-full w-full object-contain opacity-0 transition-opacity duration-300' + getIconClass(srcUrl),
@@ -295,7 +295,7 @@ export function renderSocial({ container, addBtn, socials, scheduleAutoSave }) {
       iconImg.onload = () => { iconImg.classList.remove('opacity-0'); iconContainer.classList.remove('animate-pulse'); };
       iconImg.onerror = () => { iconContainer.classList.remove('animate-pulse'); };
       iconContainer.appendChild(iconImg);
-      if (s.icon) { iconImg.src = isUrlish(s.icon) ? s.icon : `https://cdn.plinkk.fr/icons/${s.icon}.svg`; }
+      if (s.icon) { iconImg.src = isUrlish(s.icon) ? s.icon : `https://cdn.plinkk.fr/plinkk-image/icons/${s.icon}.svg`; }
       const textWrap = el('div', { class: 'min-w-0' });
       const title = el('div', { class: 'text-sm font-medium text-slate-200 truncate' }); title.textContent = s.name || s.title || (s.url || '').replace(/^https?:\/\//, '');
       const small = el('div', { class: 'text-xs text-slate-400 truncate' }); small.textContent = s.url || '';
@@ -330,7 +330,7 @@ export function renderSocial({ container, addBtn, socials, scheduleAutoSave }) {
         const saveBtn = el('button', { type: 'button', class: 'px-3 py-1 rounded text-xs bg-emerald-700 text-white' }); saveBtn.textContent = 'Valider';
         const cancelBtn = el('button', { type: 'button', class: 'px-3 py-1 rounded text-xs bg-slate-800 text-slate-200' }); cancelBtn.textContent = 'Annuler';
 
-        function setPreviewByValue(val) { if (isUrlish(val)) iconPreview.src = val; else iconPreview.src = `https://cdn.plinkk.fr/icons/${val}.svg`; }
+        function setPreviewByValue(val) { if (isUrlish(val)) iconPreview.src = val; else iconPreview.src = `https://cdn.plinkk.fr/plinkk-image/icons/${val}.svg`; }
         function updateFromCatalog() { s.icon = iconName.value; setPreviewByValue(s.icon); }
         function updateFromUrl() { s.icon = iconUrlInput.value; setPreviewByValue(s.icon); }
         function updateFromUpload(file) { if (!file) return; const reader = new FileReader(); reader.onload = () => { s.icon = String(reader.result || ''); setPreviewByValue(s.icon); }; reader.readAsDataURL(file); }
@@ -577,7 +577,7 @@ export function renderLinks({ container, addBtn, links, categories, scheduleAuto
         openIconModal((slug) => {
           const replaced = (slug.startsWith('http://') || slug.startsWith('https://'))
             ? slug
-            : `https://cdn.plinkk.fr/icons/${slug}.svg`;
+            : `https://cdn.plinkk.fr/plinkk-image/icons/${slug}.svg`;
           if (iconInput) iconInput.value = replaced;
         }, 'linkModalIconInput');
       });
@@ -625,7 +625,7 @@ export function renderLinks({ container, addBtn, links, categories, scheduleAuto
                   card.type = 'button';
                   card.className = 'p-3 rounded border border-slate-700 bg-slate-900 hover:bg-slate-800 text-left flex items-center gap-3';
                   const img = document.createElement('img');
-                  img.src = `https://cdn.plinkk.fr/icons/${item.iconSlug}.svg`;
+                  img.src = `https://cdn.plinkk.fr/plinkk-image/icons/${item.iconSlug}.svg`;
                   img.loading = 'lazy';
                   img.className = 'h-8 w-8 rounded bg-slate-800';
                   const col = document.createElement('div');
@@ -663,7 +663,7 @@ export function renderLinks({ container, addBtn, links, categories, scheduleAuto
                           const iconSourceEl = document.getElementById('linkModalIconSource');
                           const iconInput = document.getElementById('linkModalIconInput');
                           if (iconSourceEl) iconSourceEl.value = 'catalog';
-                          if (iconInput) iconInput.value = `https://cdn.plinkk.fr/icons/${plat.iconSlug}.svg`;
+                          if (iconInput) iconInput.value = `https://cdn.plinkk.fr/plinkk-image/icons/${plat.iconSlug}.svg`;
                         }
                       });
                     } catch (e) { console.warn('Failed to open platform modal:', e); }
@@ -678,7 +678,7 @@ export function renderLinks({ container, addBtn, links, categories, scheduleAuto
           const grid = el('div', { class: 'grid grid-cols-6 gap-2 w-full' });
           platforms.slice(0, 24).forEach((plat) => {
             const btn = el('button', { type: 'button', class: 'flex flex-col items-center gap-1 p-2 rounded border border-slate-700 bg-gradient-to-b from-slate-800 to-slate-900 hover:from-slate-700 hover:to-slate-800 text-center text-xs transition', title: plat.name });
-            const img = el('img', { src: `https://cdn.plinkk.fr/icons/${plat.iconSlug}.svg`, class: 'h-7 w-7', loading: 'lazy' });
+            const img = el('img', { src: `https://cdn.plinkk.fr/plinkk-image/icons/${plat.iconSlug}.svg`, class: 'h-7 w-7', loading: 'lazy' });
             const label = el('div', { class: 'text-xs text-slate-300 truncate w-full', text: plat.name });
             btn.append(imgContainer, label);
             btn.addEventListener('click', () => {
@@ -703,7 +703,7 @@ export function renderLinks({ container, addBtn, links, categories, scheduleAuto
                       const iconSourceEl = document.getElementById('linkModalIconSource');
                       const iconInput = document.getElementById('linkModalIconInput');
                       if (iconSourceEl) iconSourceEl.value = 'catalog';
-                      if (iconInput) iconInput.value = `https://cdn.plinkk.fr/icons/${plat.iconSlug}.svg`;
+                      if (iconInput) iconInput.value = `https://cdn.plinkk.fr/plinkk-image/icons/${plat.iconSlug}.svg`;
                     }
                   });
                 } catch (e) { console.warn('Failed to open platform modal:', e); }
@@ -918,7 +918,7 @@ export function renderLinks({ container, addBtn, links, categories, scheduleAuto
               const platformBtns = [];
               platforms.slice(0, 24).forEach((plat) => {
                 const btn = el('button', { type: 'button', class: 'flex flex-col items-center gap-1 p-2 rounded border border-slate-700 bg-gradient-to-b from-slate-800 to-slate-900 hover:from-slate-700 hover:to-slate-800 text-center text-xs transition', title: plat.name, 'data-name': plat.name.toLowerCase() });
-                const img = el('img', { src: `https://cdn.plinkk.fr/icons/${plat.iconSlug}.svg`, class: 'h-7 w-7' });
+                const img = el('img', { src: `https://cdn.plinkk.fr/plinkk-image/icons/${plat.iconSlug}.svg`, class: 'h-7 w-7' });
                 const label = el('div', { class: 'text-xs text-slate-300 truncate w-full', text: plat.name });
                 btn.append(imgContainer, label);
                 btn.addEventListener('click', () => {
@@ -944,7 +944,7 @@ export function renderLinks({ container, addBtn, links, categories, scheduleAuto
                         const iconSourceEl = document.getElementById('linkModalIconSource');
                         const iconInput = document.getElementById('linkModalIconInput');
                         if (iconSourceEl) iconSourceEl.value = 'catalog';
-                        if (iconInput) iconInput.value = `https://cdn.plinkk.fr/icons/${plat.iconSlug}.svg`;
+                        if (iconInput) iconInput.value = `https://cdn.plinkk.fr/plinkk-image/icons/${plat.iconSlug}.svg`;
                       }
                     });
                   } catch (e) { console.warn('Failed to open platform modal:', e); }
@@ -1329,13 +1329,13 @@ export function renderLinks({ container, addBtn, links, categories, scheduleAuto
       const type = l.type || 'LINK';
       if (type === 'EMBED') {
         const url = (l.url || '').toLowerCase();
-        if (url.includes('youtube.com') || url.includes('youtu.be')) displayIcon = 'https://cdn.plinkk.fr/icons/youtube-alt.svg';
-        else if (url.includes('spotify.com')) displayIcon = 'https://cdn.plinkk.fr/icons/spotify.svg';
-        else displayIcon = 'https://cdn.plinkk.fr/icons/video.svg'; // fallback
+        if (url.includes('youtube.com') || url.includes('youtu.be')) displayIcon = 'https://cdn.plinkk.fr/plinkk-image/icons/youtube-alt.svg';
+        else if (url.includes('spotify.com')) displayIcon = 'https://cdn.plinkk.fr/plinkk-image/icons/spotify.svg';
+        else displayIcon = 'https://cdn.plinkk.fr/plinkk-image/icons/video.svg'; // fallback
       } else if (type === 'FORM') {
-        displayIcon = 'https://cdn.plinkk.fr/icons/messenger.svg'; // Or a mail icon
+        displayIcon = 'https://cdn.plinkk.fr/plinkk-image/icons/messenger.svg'; // Or a mail icon
       } else if (type === 'HEADER') {
-        displayIcon = 'https://cdn.plinkk.fr/icons/list.svg';
+        displayIcon = 'https://cdn.plinkk.fr/plinkk-image/icons/list.svg';
       }
     }
 

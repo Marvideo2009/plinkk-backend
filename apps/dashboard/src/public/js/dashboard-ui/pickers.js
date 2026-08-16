@@ -275,7 +275,7 @@ export async function populateIconGrid(filterText) {
       imgContainer.className = 'h-10 w-10 rounded-lg bg-slate-800 animate-pulse shrink-0 flex items-center justify-center overflow-hidden';
 
       const img = document.createElement('img');
-      img.src = i.url || `https://cdn.plinkk.fr/icons/${i.slug}.svg`;
+      img.src = i.url || `https://cdn.plinkk.fr/plinkk-image/icons/${i.slug}.svg`;
       img.alt = i.displayName;
       img.loading = 'lazy';
       img.className = 'h-full w-full object-contain opacity-0 transition-opacity duration-300' + getIconClass(img.src);

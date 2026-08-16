@@ -396,7 +396,7 @@ function renderPlinkk(config) {
 
         // --- FORM ---
         if (link.type === 'FORM') {
-            const linkIcon = link.icon || 'https://cdn.plinkk.fr/icons/mail.svg';
+            const linkIcon = link.icon || 'https://cdn.plinkk.fr/plinkk-image/icons/mail.svg';
             const formTextColor = isLight ? '#000000' : btnText;
 
             return `
