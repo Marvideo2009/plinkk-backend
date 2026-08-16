@@ -1,7 +1,7 @@
 import { error, redirect } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types.js';
 import { prisma } from '@plinkk/prisma';
-import { resolvePlinkkPage, filterScheduledLinks } from '@plinkk/shared';
+import { resolvePlinkkPage, filterScheduledLinks, generateTheme } from '@plinkk/shared';
 
 export const load: PageServerLoad = async ({ params, request, locals }) => {
     const { slug } = params;
@@ -64,6 +64,15 @@ export const load: PageServerLoad = async ({ params, request, locals }) => {
 
         const category = await prisma.category.findMany({ where: { plinkkId: resolved.page.id }, orderBy: { order: "asc" }})
 
+        const themesPayload = await generateTheme(resolved.user.id)
+
+        const themes: any[] = []
+
+        themesPayload.builtIns.forEach(t => themes.push(t));
+        themesPayload.theme.forEach(t => themes.push(t));
+
+        const selectedThemes = themes[settings?.selectedThemeIndex ?? 0]
+
         return {
             page: resolved.page,
             user: resolved.user,
@@ -76,7 +85,8 @@ export const load: PageServerLoad = async ({ params, request, locals }) => {
             category: category,
             settings: settings,
             isOwner: resolved.isOwner,
-            publicPath: resolved.page.slug || resolved.user.id
+            publicPath: resolved.page.slug || resolved.user.id,
+            theme: selectedThemes
         };
     } catch (e) {
         if (e && typeof e === 'object' && 'status' in e) throw e;

@@ -85,14 +85,14 @@
           href={`https://plinkk.fr/click/${link.id}`}
           target="_blank"
           rel="noopener noreferrer"
-          class="discord-box standard-link"
+          class="button button-{profileData.settings.buttonThemeEnable === 0 ? "default" : link.buttonTheme !== "system" ? link.buttonTheme : link.icon.startsWith("https://") ? "default" : link.icon} button-{profileData.settings.buttonStyle}"
           style="color: {isLight ? '#000000' : (profileData.buttonTextColor || '#fff')}"
         >
           {#if link.icon}
             <img
               src={link.icon.startsWith("https://") ? link.icon : `https://cdn.plinkk.fr/plinkk-image/icons/${link.icon}.svg`}
               alt=""
-              class="w-6 h-6 object-contain"
+              class="w-6 h-6 object-contain icon"
               style={isLight ? 'filter: brightness(0);' : ''}
             />
           {/if}

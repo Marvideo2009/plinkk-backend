@@ -8,13 +8,17 @@
   import LabelButtons from "$lib/components/plinkk/LabelButtons.svelte";
   import UserName from "$lib/components/plinkk/UserName.svelte";
   import ProfileContainer from "$lib/components/plinkk/ProfileContainer.svelte";
+  import CanvasAnimation from "$lib/components/plinkk/CanvasAnimation.svelte";
   import { page } from "$app/stores";
+  import { initTheme, toggleTheme } from "$lib/themeStore.js";
 
   export let data: PageData;
 
   let profileConfig = data;
 
-  const isPreview = $page.url.searchParams.get("preview") === "1"
+  //console.log(profileConfig);
+
+  const isPreview = $page.url.searchParams.get("preview") === "1";
 
   $: pageTitle =
     profileConfig?.page?.name || profileConfig?.user?.name
@@ -54,6 +58,13 @@
 
     window.addEventListener("message", handleMessage);
 
+    const savedCookie = document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("theme="))
+      ?.split("=")[1];
+
+    initTheme(data.theme, savedCookie);
+
     return () => {
       window.removeEventListener("message", handleMessage);
     };
@@ -69,12 +80,21 @@
 
 <Head title={pageTitle} description={profileConfig.page.description} />
 
-<div class="background"></div>
+<CanvasAnimation profileData={profileConfig} />
+
 <article
   id="profile-article"
   class="w-full max-w-xl flex flex-col items-center"
-  style="background: rgba(0, 0, 0, 0.6); color: white; animation: 1s ease-in-out 0s 1 normal none running fade; --darkreader-inline-bgimage: initial; --darkreader-inline-bgcolor: var(--darkreader-background-00000099, rgba(0, 0, 0, 0.6)); --darkreader-inline-color: var(--darkreader-text-ffffff, #e8e6e3);"
 >
+  {#if data.theme}
+    <button
+      class="theme-toggle-button"
+      id="theme-toggle-button"
+      title="Theme toggle"
+      on:click={() => toggleTheme(data.theme)}
+    >
+    </button>
+  {/if}
   {#each sortedLayout as key (key)}
     {#if key === "profile"}
       <ProfileContainer
@@ -115,18 +135,27 @@
     {/if}
   {/each}
 </article>
-<div class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 {isPreview ? "hidden" : ""}">
+
+<div
+  class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 {isPreview
+    ? 'hidden'
+    : ''}"
+>
   <a
     href="/"
     class="flex items-center gap-2 text-slate-500 hover:text-white transition-colors text-sm"
   >
-    <img src="https://cdn.plinkk.fr/plinkk-image/logo.svg" alt="Plinkk" class="w-5 h-5" />
+    <img
+      src="https://cdn.plinkk.fr/plinkk-image/logo.svg"
+      alt="Plinkk"
+      class="w-5 h-5"
+    />
     Créé avec Plinkk
   </a>
 </div>
 
 <style>
-  :global(body) {
+  /* :global(body) {
     background-color: #07080d;
-  }
+  } */
 </style>
