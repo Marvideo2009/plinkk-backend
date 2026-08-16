@@ -45,7 +45,7 @@
 <div class="discord-box form-box transition-all duration-500 overflow-visible">
   <button type="button" class="form-toggle-btn" on:click={toggleForm}>
     <img
-      src={link.icon || 'https://cdn.plinkk.fr/icons/mail.svg'}
+      src={link.icon || 'https://cdn.plinkk.fr/plinkk-image/icons/mail.svg'}
       alt=""
       class="w-6 h-6 object-contain icon-img"
       style={isLight ? 'filter: brightness(0);' : ''}

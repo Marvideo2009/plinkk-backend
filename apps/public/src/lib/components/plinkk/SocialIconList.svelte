@@ -20,7 +20,7 @@
     if (/^(https?:\/\/|\/|data:)/i.test(iconVal)) {
       return iconVal;
     }
-    return `https://cdn.plinkk.fr/icons/${iconVal.toLowerCase().replace(/ /g, '-')}.svg`;
+    return `https://cdn.plinkk.fr/plinkk-image/icons/${iconVal.toLowerCase().replace(/ /g, '-')}.svg`;
   }
 
   function isCdnIcon(src: string, iconValRaw?: string | null): boolean {

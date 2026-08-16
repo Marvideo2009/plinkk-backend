@@ -90,7 +90,7 @@
         >
           {#if link.icon}
             <img
-              src={link.icon.startsWith("https://") ? link.icon : `https://cdn.plinkk.fr/icons/${link.icon}.svg`}
+              src={link.icon.startsWith("https://") ? link.icon : `https://cdn.plinkk.fr/plinkk-image/icons/${link.icon}.svg`}
               alt=""
               class="w-6 h-6 object-contain"
               style={isLight ? 'filter: brightness(0);' : ''}

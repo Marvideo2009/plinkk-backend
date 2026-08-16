@@ -8,10 +8,13 @@
   import LabelButtons from "$lib/components/plinkk/LabelButtons.svelte";
   import UserName from "$lib/components/plinkk/UserName.svelte";
   import ProfileContainer from "$lib/components/plinkk/ProfileContainer.svelte";
+  import { page } from "$app/stores";
 
   export let data: PageData;
 
   let profileConfig = data;
+
+  const isPreview = $page.url.searchParams.get("preview") === "1"
 
   $: pageTitle =
     profileConfig?.page?.name || profileConfig?.user?.name
@@ -112,7 +115,7 @@
     {/if}
   {/each}
 </article>
-<div class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50">
+<div class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 {isPreview ? "hidden" : ""}">
   <a
     href="/"
     class="flex items-center gap-2 text-slate-500 hover:text-white transition-colors text-sm"

@@ -26,9 +26,18 @@
 	--accent-orange: #F97316;
 }
 
-body {
-	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+	display: none;
 }
+
+html, body {
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  overflow-y: scroll;
+}
+
 
 .brand-gradient {
 	@apply bg-clip-text text-transparent;
